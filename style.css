@@ -1,0 +1,993 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Gotham HTF-Book", "Inter", sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 42px;
+  position: relative;
+}
+
+/* Header styles */
+.header {
+  padding: 16px 0;
+  background: #000;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  height: 24px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.cta-button {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 12px 4px #59ffcd;
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  min-height: 100vh;
+}
+
+.gradient-follow {
+  position: absolute;
+  width: 1200px;
+  height: 1200px;
+  background: radial-gradient(circle at center, 
+    rgba(36, 185, 141, 0.25) 0%, 
+    rgba(36, 185, 141, 0.15) 40%,
+    rgba(36, 185, 141, 0) 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  filter: blur(30px);
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 144px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  margin-top: 120px;
+  line-height: 144px;
+  max-width: 1320px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.card {
+  background-color: #00c187;
+  padding: 50px 40px;  /* 상하 패딩 증가 */
+  border-radius: 4px;
+  flex: 1;
+  max-width: 427px;
+  min-height: 160px;  /* 최소 높이 추가 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-icon {
+  width: 75px;
+  height: 75px;
+  background-image: url(https://c.animaapp.com/b3FISGYA/img/group-2@2x.png);
+  background-size: 100% 100%;
+  margin-bottom: 96px;
+}
+
+.card-text {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 31.2px;
+  line-height: 43.2px;
+}
+
+.hero-image {
+  position: relative;
+  width: 738px;
+  height: 738px;
+  margin: 0 auto;
+  display: block;
+  margin-top: 100px;
+  z-index: 2;
+}
+
+/* Section styles */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-title {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 144px;
+  line-height: 144px;
+  margin-bottom: 60px;
+}
+
+.description {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 36px;
+  max-width: 800px;
+}
+
+/* Features section */
+.features {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.feature-column {
+  background-color: #003629;
+  padding: 40px;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.feature-title {
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9affe0;
+  font-size: 60px;
+  line-height: 60px;
+  margin-bottom: 20px;
+}
+
+.feature-description {
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9affe0;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 40px;
+}
+
+.feature-list {
+  list-style-type: none;
+}
+
+.feature-item {
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9affe0;
+  font-size: 20px;
+  line-height: 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(154, 255, 224, 0.3);
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.feature-item:before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  font-size: 20px;
+}
+
+.feature-item-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9affe0;
+  font-size: 16px;
+  line-height: 24px;
+  opacity: 0;
+  padding-left: 30px;
+  margin-top: 0;
+}
+
+.feature-item.active .feature-item-details {
+  max-height: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.feature-item.active:before {
+  content: "-";
+}
+
+.feature-item:hover {
+  color: #ffffff;
+}
+
+/* FAQ section */
+.faq {
+  background: #000;
+  padding: 80px 0;
+}
+
+.faq-title {
+  font-size: 64px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.faq-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 60px;
+  max-width: 600px;
+}
+
+.faq .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.faq-content {
+  position: relative;
+}
+
+.faq-list {
+  margin: 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.faq-question {
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  font-size: 24px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 1000px;
+  padding-top: 20px;
+}
+
+.see-more {
+  grid-column: 2;
+  margin-top: 40px;
+}
+
+.see-more {
+  color: #00FF9D;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+.see-more::after {
+  content: '→';
+  margin-left: 8px;
+}
+
+/* CTA section */
+.cta {
+  background-image: url(https://c.animaapp.com/b3FISGYA/img/gradient-1.png);
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+}
+
+.cta-title {
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 100px;
+  line-height: normal;
+  margin-bottom: 60px;
+  max-width: 678px;
+}
+
+.cta-content {
+  max-width: 682px;
+  margin-left: auto;
+}
+
+.cta-description {
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 35px;
+  margin-bottom: 40px;
+}
+
+.cta-email {
+  display: block;
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.email-input-container {
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.cta-email-input {
+  width: 100%;
+  padding: 12px 40px 12px 0;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #fff;
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 18px;
+  letter-spacing: -0.40px;
+  transition: all 0.3s ease;
+}
+
+.cta-email-input:focus {
+  outline: none;
+  border-bottom-color: #fff;
+}
+
+.cta-email-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 18px;
+  letter-spacing: -0.40px;
+}
+
+/* Arrow icon */
+.email-input-container::after {
+  content: '→';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 24px;
+  pointer-events: none;
+}
+
+/* Original CTA button styles */
+.cta-btn {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: "Gotham-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 18px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.cta-btn:hover {
+  border: 2px solid #00ffc8;
+}
+
+/* Footer */
+.footer {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 100px 0 40px;
+}
+
+.footer-title {
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 80px;
+  line-height: 88px;
+  margin-bottom: 100px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.footer-logo-text {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 32px;
+  letter-spacing: -0.40px;
+  line-height: 29px;
+}
+
+.footer-nav,
+.social-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-nav a,
+.social-links a {
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  line-height: 22.4px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.copyright {
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  line-height: 22.4px;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .hero-title,
+  .section-title {
+    font-size: 100px;
+    line-height: 100px;
+  }
+  
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .features {
+    flex-direction: column;
+  }
+  
+  .faq-list {
+    margin-left: 0;
+    margin-top: 40px;
+  }
+  
+  .see-more {
+    margin-left: 0;
+  }
+  
+  .cta-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .hero-title,
+  .section-title {
+    font-size: 60px;
+    line-height: 60px;
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .cta-title {
+    font-size: 60px;
+  }
+  
+  .footer-title {
+    font-size: 48px;
+    line-height: 56px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+/* Custom fonts */
+@font-face {
+  font-family: "Gotham HTF-Book";
+  src: url("https://anima-uploads.s3.amazonaws.com/5c4631c799b050000a5bdde6/GothamHTF-Book.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gotham-Book";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/6546a6a8e6cfe31c46f5ccea/fonts/gotham-book.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gotham-Bold";
+  src: url("https://anima-uploads.s3.amazonaws.com/projects/65410c35416ace0412c89137/fonts/gotham-bold.otf")
+    format("opentype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.problem-statement {
+  background: #000;
+  padding: 160px 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.problem-statement::before {
+  content: '';
+  position: absolute;
+  width: 1200px;
+  height: 1200px;
+  background: radial-gradient(circle at center, 
+    rgba(36, 185, 141, 0.08) 0%, 
+    rgba(36, 185, 141, 0.05) 40%,
+    rgba(36, 185, 141, 0) 70%
+  );
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: blur(50px);
+  animation: gradientFloat 15s ease-in-out infinite;
+}
+
+.problem-statement .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.problem-statement .title-container {
+  position: sticky;
+  top: 160px;
+  height: fit-content;
+}
+
+.problem-statement .section-title {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 144px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  line-height: 144px;
+  max-width: 800px;
+}
+
+.problem-statement .content-container {
+  display: flex;
+  gap: 60px;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+.problem-statement .description {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 36px;
+  max-width: 100%;
+}
+
+.problem-statement .left-content {
+  flex: 1;
+  max-width: 50%;
+}
+
+.problem-statement .right-content {
+  flex: 1;
+  max-width: 50%;
+}
+
+.problem-statement .description p {
+  margin-bottom: 24px;
+}
+
+.problem-statement .description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Add subtle animation to the gradient */
+@keyframes gradientFloat {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 1200px) {
+  .problem-statement .content-container {
+    flex-direction: column;
+  }
+
+  .problem-statement .left-content,
+  .problem-statement .right-content {
+    max-width: 100%;
+  }
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 100px 0;
+  background: #000;
+  color: #fff;
+}
+
+.steps-container {
+  display: flex;
+  gap: 80px;
+  margin-top: 60px;
+  align-items: flex-start;
+}
+
+.steps-visualization {
+  flex: 1;
+  position: relative;
+}
+
+.flow-diagram {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+}
+
+.steps-description {
+  flex: 1;
+  padding-top: 40px;
+}
+
+.step-item {
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.step-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.step-item.active {
+  background: rgba(0, 255, 200, 0.1);
+  border: 1px solid #00ffc8;
+}
+
+.step-number {
+  font-size: 24px;
+  color: #00ffc8;
+  margin-bottom: 12px;
+}
+
+.step-item h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.step-item p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Remove old animation styles */
+.step-image,
+.step-branches,
+.step-icon,
+.steps-visualization::after,
+.step-branches::before,
+.step-branches::after {
+  display: none;
+}
+
+.terms-agreement {
+  margin-top: 60px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #00ffc8;
+}
+
+.proceed-btn {
+  background: #00ffc8;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.proceed-btn:hover {
+  background: #00e6b5;
+}
+
+.proceed-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+/* Arrow indicators */
+.step-image::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.step3::after {
+  display: none;
+}
+
+/* Adjust the main content to account for fixed header */
+main {
+  padding-top: 56px; /* header height + padding */
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: #000;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-modal {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+  color: #00ffc8;
+}
+
+.modal-content h2 {
+  color: #fff;
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 24px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.early-access-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-bottom-color: #00ffc8;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+.submit-btn {
+  background: #00ffc8;
+  color: #000;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-family: "Gotham-Bold", Helvetica;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
