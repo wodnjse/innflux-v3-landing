@@ -11,6 +11,9 @@ body {
   color: #ffffff;
   line-height: 1.5;
   overflow-x: hidden;
+  margin: 0;
+  background: #000000;
+  min-height: 100vh;
 }
 
 .container {
@@ -20,58 +23,79 @@ body {
   position: relative;
 }
 
+section .container {
+  margin-bottom: 32px;
+}
+
 /* Header styles */
 .header {
-  padding: 16px 0;
-  background: #000;
   position: fixed;
-  width: 100%;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 24px 42px;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .logo-icon {
+  width: 24px;
   height: 24px;
-  width: auto;
 }
 
 .logo-text {
+  font-family: "Gotham HTF-Book", Helvetica;
   font-size: 20px;
-  font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   margin: 0;
 }
 
 .cta-button {
-  background-color: #000000;
-  color: #ffffff;
   font-family: "Gotham HTF-Book", Helvetica;
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 16px;
-  border: none;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 8px 20px;
   cursor: pointer;
-  box-shadow: 0px 2px 12px 4px #59ffcd;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Hero section */
 .hero {
   position: relative;
+  background: radial-gradient(circle at 50% 50%, #001a13 0%, #000000 100%);
   overflow: hidden;
-  background: #000;
-  min-height: 100vh;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .gradient-follow {
@@ -95,6 +119,7 @@ body {
 .hero .container {
   position: relative;
   z-index: 2;
+  padding-top: 120px;
 }
 
 .hero-content {
@@ -108,7 +133,7 @@ body {
   font-weight: 400;
   color: #fff;
   margin: 0;
-  margin-top: 120px;
+  margin-top: 40px;
   line-height: 144px;
   max-width: 1320px;
 }
@@ -118,25 +143,22 @@ body {
   font-size: 24px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
-  margin: 24px 0 0;
+  margin: 16px 0 0;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 .cards-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 42px;
   margin-top: 60px;
 }
 
 .card {
   background-color: #00c187;
-  padding: 50px 40px;  /* 상하 패딩 증가 */
-  border-radius: 4px;
-  flex: 1;
-  max-width: 427px;
-  min-height: 160px;  /* 최소 높이 추가 */
+  padding: 50px 40px;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,6 +178,8 @@ body {
   color: #ffffff;
   font-size: 31.2px;
   line-height: 43.2px;
+  margin: 0;
+  padding-top: 32px;
 }
 
 .hero-image {
@@ -291,8 +315,9 @@ body {
   justify-content: center;
   gap: 120px;
   align-items: flex-start;
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
+  padding: 0 42px;
 }
 
 .faq-content {
@@ -568,8 +593,7 @@ body {
   }
   
   .cards-container {
-    flex-direction: column;
-    align-items: center;
+    gap: 32px;
   }
   
   .card {
@@ -604,6 +628,7 @@ body {
     flex-direction: column;
     gap: 32px;
     align-items: center;
+    padding: 0 24px;
   }
 
   .faq-content {
@@ -642,12 +667,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .faq {
-    padding: 40px 0;
-  }
-
   .faq .container {
-    gap: 24px;
+    padding: 0 20px;
   }
 
   .faq-title {
@@ -815,39 +836,52 @@ body {
 }
 
 .step-item {
-  padding: 30px;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.step-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.step-item.active {
-  background: rgba(0, 255, 200, 0.1);
-  border: 1px solid #00ffc8;
-}
-
-.step-number {
-  font-size: 24px;
-  color: #00ffc8;
-  margin-bottom: 12px;
+.step-item::before {
+  content: attr(data-step);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: "Gotham-Book", Helvetica;
+  margin-bottom: 16px;
+  position: static;
 }
 
 .step-item h3 {
   font-size: 24px;
-  margin-bottom: 16px;
   color: #fff;
+  margin: 0 0 16px;
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
 }
 
 .step-item p {
   font-size: 16px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-family: "Gotham-Book", Helvetica;
+}
+
+.step-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.step-item.active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.step-item.active::before {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Remove old animation styles */
@@ -921,7 +955,8 @@ body {
 
 /* Adjust the main content to account for fixed header */
 main {
-  padding-top: 56px; /* header height + padding */
+  padding-top: 0;
+  margin-top: 0;
 }
 
 /* Modal Styles */
@@ -1026,4 +1061,60 @@ main {
 .submit-btn:hover {
   opacity: 0.9;
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .step-item {
+    padding: 24px;
+  }
+
+  .step-item::before {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .step-item h3 {
+    font-size: 20px;
+  }
+
+  .step-item p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+    margin-bottom: 16px;
+  }
+  
+  section .container {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header .container {
+    padding: 12px 24px;
+  }
+  
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+  }
+  
+  .cta-button {
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero .container {
+    padding-top: 80px;
+  }
 }
