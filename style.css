@@ -76,20 +76,20 @@ body {
 
 .gradient-follow {
   position: absolute;
-  width: 1200px;
-  height: 1200px;
+  width: 1400px;
+  height: 1400px;
   background: radial-gradient(circle at center, 
-    rgba(36, 185, 141, 0.25) 0%, 
-    rgba(36, 185, 141, 0.15) 40%,
-    rgba(36, 185, 141, 0) 70%
+    rgba(36, 185, 141, 0.35) 0%, 
+    rgba(36, 185, 141, 0.2) 35%,
+    rgba(36, 185, 141, 0.05) 70%
   );
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
   will-change: transform;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   opacity: 0;
-  filter: blur(30px);
+  filter: blur(50px);
 }
 
 .hero .container {
@@ -111,6 +111,16 @@ body {
   margin-top: 120px;
   line-height: 144px;
   max-width: 1320px;
+}
+
+.hero-subtitle {
+  font-family: "Gotham HTF-Book", Helvetica;
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 24px 0 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .cards-container {
@@ -276,6 +286,19 @@ body {
   padding: 80px 0;
 }
 
+.faq .container {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.faq-content {
+  flex: 0 1 500px;
+}
+
 .faq-title {
   font-size: 64px;
   color: #fff;
@@ -287,22 +310,10 @@ body {
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 60px;
-  max-width: 600px;
-}
-
-.faq .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.faq-content {
-  position: relative;
 }
 
 .faq-list {
-  margin: 0;
+  flex: 0 1 600px;
 }
 
 .faq-item {
@@ -380,8 +391,8 @@ body {
   font-family: "Gotham-Book", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 100px;
-  line-height: normal;
+  font-size: clamp(48px, 8vw, 100px);
+  line-height: 1.1;
   margin-bottom: 60px;
   max-width: 678px;
 }
@@ -395,8 +406,8 @@ body {
   font-family: "Gotham-Book", Helvetica;
   font-weight: 400;
   color: #ffffff;
-  font-size: 20px;
-  line-height: 35px;
+  font-size: 18px;
+  line-height: 1.6;
   margin-bottom: 40px;
 }
 
@@ -551,6 +562,11 @@ body {
     line-height: 100px;
   }
   
+  .hero-subtitle {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  
   .cards-container {
     flex-direction: column;
     align-items: center;
@@ -580,33 +596,73 @@ body {
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
+  .faq {
+    padding: 60px 0;
   }
-  
-  .hero-title,
-  .section-title {
-    font-size: 60px;
-    line-height: 60px;
+
+  .faq .container {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
   }
-  
-  .hero-image {
+
+  .faq-content {
+    flex: none;
     width: 100%;
-    height: auto;
+    text-align: center;
   }
-  
-  .cta-title {
-    font-size: 60px;
-  }
-  
-  .footer-title {
+
+  .faq-title {
     font-size: 48px;
     line-height: 56px;
+    margin-bottom: 16px;
   }
-  
-  .footer-content {
-    flex-direction: column;
-    gap: 40px;
+
+  .faq-description {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .faq-list {
+    flex: none;
+    width: 100%;
+  }
+
+  .faq-item {
+    padding: 20px 0;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq {
+    padding: 40px 0;
+  }
+
+  .faq .container {
+    gap: 24px;
+  }
+
+  .faq-title {
+    font-size: 36px;
+    line-height: 44px;
+    margin-bottom: 12px;
+  }
+
+  .faq-description {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .faq-item {
+    padding: 16px 0;
   }
 }
 
@@ -639,69 +695,49 @@ body {
 }
 
 .problem-statement {
-  background: #000;
-  padding: 160px 0;
   position: relative;
+  padding: 100px 0;
   overflow: hidden;
-  min-height: 100vh;
-}
-
-.problem-statement::before {
-  content: '';
-  position: absolute;
-  width: 1200px;
-  height: 1200px;
-  background: radial-gradient(circle at center, 
-    rgba(36, 185, 141, 0.08) 0%, 
-    rgba(36, 185, 141, 0.05) 40%,
-    rgba(36, 185, 141, 0) 70%
-  );
-  border-radius: 50%;
-  top: 50%;
-  left: 0;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  filter: blur(50px);
-  animation: gradientFloat 15s ease-in-out infinite;
 }
 
 .problem-statement .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 120px;
-  align-items: start;
+  position: relative;
+  z-index: 2;
 }
 
 .problem-statement .title-container {
-  position: sticky;
-  top: 160px;
-  height: fit-content;
+  margin-bottom: 60px;
 }
 
 .problem-statement .section-title {
-  font-family: "Gotham HTF-Book", Helvetica;
-  font-size: 144px;
-  font-weight: 400;
-  color: #fff;
-  margin: 0;
-  line-height: 144px;
-  max-width: 800px;
+  font-size: clamp(36px, 8vw, 144px);
+  line-height: 1.1;
+  margin-bottom: 40px;
 }
 
 .problem-statement .content-container {
   display: flex;
   gap: 60px;
   justify-content: space-between;
-  padding-top: 40px;
 }
 
 .problem-statement .description {
-  font-family: "Gotham HTF-Book", Helvetica;
-  font-weight: 400;
+  font-size: clamp(16px, 2vw, 24px);
+  line-height: 1.5;
   color: #ffffff;
-  font-size: 24px;
-  line-height: 36px;
   max-width: 100%;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.problem-statement .description p {
+  margin-bottom: clamp(16px, 2vw, 24px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.problem-statement .description p:hover {
+  opacity: 1;
 }
 
 .problem-statement .left-content {

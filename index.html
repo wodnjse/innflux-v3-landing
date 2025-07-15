@@ -24,6 +24,7 @@
         <div class="container">
           <div class="hero-content">
             <h2 class="hero-title">World's First Composable Credit Layer.</h2>
+            <p class="hero-subtitle">Powered by DeFi</p>
             <div class="cards-container">
               <div class="card">
                 <div class="card-icon"></div>
@@ -48,20 +49,22 @@
           <div class="steps-container">
             <div class="steps-visualization">
               <img src="./Frame 11.png" alt="Innflux Protocol Flow" class="flow-diagram" />
+              <div class="step-numbers">
+                <span class="active">01</span>
+                <span>02</span>
+                <span>03</span>
+              </div>
             </div>
             <div class="steps-description">
               <div class="step-item active" data-step="1">
-                <div class="step-number">01</div>
-                <h3>User Interaction</h3>
-                <p>Users can interact with the Innflux protocol in two ways: by depositing USDT through Tether or providing Uniswap LP NFTs as collateral.</p>
+                <h3>Deposit in a Morpho Vault</h3>
+                <p>Earn yield by depositing an asset into a vault curated by third-party risk curators. Each vault has a unique risk profile and strategy determined by the curator. Creating a vault is permissionless, so users should assess a vault's curator and risk exposure before depositing.</p>
               </div>
               <div class="step-item" data-step="2">
-                <div class="step-number">02</div>
                 <h3>Protocol Processing</h3>
                 <p>The Innflux Protocol processes user deposits and collateral, managing the flow of assets and determining credit availability based on provided assets.</p>
               </div>
               <div class="step-item" data-step="3">
-                <div class="step-number">03</div>
                 <h3>Credit Distribution</h3>
                 <p>Through our Financial Data ZKTLS system and credit line processing, enterprises can access credit lines while maintaining privacy and security.</p>
               </div>
@@ -131,7 +134,6 @@
               </div>
             </div>
           </div>
-          <a href="#" class="see-more">See More FAQs</a>
         </div>
       </section>
 
@@ -170,7 +172,7 @@
               <input type="text" id="x" placeholder="X (Twitter) Username" required>
             </div>
             <div class="form-group">
-              <textarea id="message" placeholder="Tell us about your interest in Innflux" rows="4" required></textarea>
+              <textarea id="message" placeholder="Are you interested to be a lender or borrower on innflux?" rows="4" required></textarea>
             </div>
             <button type="submit" class="submit-btn">Submit Request</button>
           </form>
@@ -262,48 +264,30 @@
 
         // Handle How It Works section interactions
         const stepItems = document.querySelectorAll('.step-item');
-        const stepImages = document.querySelectorAll('.step-image');
+        const stepNumbers = document.querySelectorAll('.step-numbers span');
         let currentStep = 0;
 
         function activateStep(index) {
           // Deactivate all steps
           stepItems.forEach(item => item.classList.remove('active'));
-          stepImages.forEach(image => {
-            image.classList.remove('active');
-            image.style.opacity = '0';
-          });
+          stepNumbers.forEach(num => num.classList.remove('active'));
           
-          // Activate current step and all previous steps
-          for (let i = 0; i <= index; i++) {
-            stepImages[i].classList.add('active');
-            stepImages[i].style.opacity = '1';
-            
-            // Add delay for animation
-            setTimeout(() => {
-              stepImages[i].style.transform = 'translateX(-50%) translateY(0)';
-            }, i * 100);
-          }
+          // Activate current step
+          stepItems[index].classList.add('active');
+          stepNumbers[index].classList.add('active');
           
-          // Activate current step description
-          stepItems[Math.min(2, index)].classList.add('active');
           currentStep = index;
         }
 
         // Initialize first step
         activateStep(0);
 
-        // Add click handlers to step items
-        stepItems.forEach((item, index) => {
-          item.addEventListener('click', () => {
-            activateStep(index * 2); // Multiply by 2 because we have branching steps
+        // Add click handlers to step numbers
+        stepNumbers.forEach((num, index) => {
+          num.addEventListener('click', () => {
+            activateStep(index);
           });
         });
-
-        // Auto-advance steps every 5 seconds
-        setInterval(() => {
-          currentStep = (currentStep + 1) % 5;
-          activateStep(currentStep);
-        }, 5000);
 
         // Handle terms agreement
         const termsCheckbox = document.querySelector('.checkbox-container input');
@@ -395,8 +379,6 @@ ${message}
           <div class="social-links">
             <a href="https://x.com/innflux_xyz" target="_blank">X</a>
             <a href="#">LinkedIn</a>
-            <a href="#">Discord</a>
-            <a href="#">Telegram</a>
           </div>
         </div>
         <p class="copyright">© 2025 Innflux, Inc. All rights reserved.</p>
