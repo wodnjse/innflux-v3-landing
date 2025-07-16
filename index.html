@@ -14,7 +14,7 @@
           <img class="logo-icon" src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" />
           <h1 class="logo-text">Innflux</h1>
         </div>
-        <button class="cta-button">Get Early Access</button>
+        <button class="cta-button" onclick="openModal()">Get Early Access</button>
       </div>
     </header>
 
@@ -49,11 +49,6 @@
           <div class="steps-container">
             <div class="steps-visualization">
               <img src="./structure.png" alt="Innflux Protocol Flow" class="flow-diagram" />
-              <div class="step-numbers">
-                <span class="active">01</span>
-                <span>02</span>
-                <span>03</span>
-              </div>
             </div>
             <div class="steps-description">
               <div class="step-item active" data-step="01">
@@ -93,10 +88,89 @@
         </div>
       </section>
 
+      <section class="section solution">
+        <div class="container">
+          <div class="features">
+            <div class="feature-column">
+              <h3 class="feature-title">Borrowing</h3>
+              <p class="feature-description">Uncollateralised Institutional Credit in minutes.</p>
+              <ul class="feature-list">
+                <li class="feature-item">
+                  Credit lines
+                  <div class="feature-item-details">
+                    $250k–$10M with dynamic quotes.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Hybrid scoring
+                  <div class="feature-item-details">
+                    on-chain cash-flow + off-chain bureaus + custom weights. <br>Powered by FluxScore.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  No crypto collateral
+                  <div class="feature-item-details">
+                    Trade history backed lines.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Built in fiat ramps
+                  <div class="feature-item-details">
+                    bridge secured credit lines to fiat instantly.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Fully Compliant
+                  <div class="feature-item-details">
+                    Innflux monitors all lender wallets for AML, FATCA compliance checks.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="feature-column">
+              <h3 class="feature-title">Lending</h3>
+              <p class="feature-description">Lend Anything. Earn Real-World USDC Yield.</p>
+              <ul class="feature-list">
+                <li class="feature-item">
+                  Plug in any asset
+                  <div class="feature-item-details">
+                    stablecoins, out-of-range Uni V3 LP ERC 721's.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  DeFi composability
+                  <div class="feature-item-details">
+                    Get composable tokens in exchange for liquidity and wrap your receipt token to farm, leverage, or restake elsewhere.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Instant exits
+                  <div class="feature-item-details">
+                    withdraw any time with zero lock-ups.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Transparent risk
+                  <div class="feature-item-details">
+                    see borrower score and payment streams onchain.
+                  </div>
+                </li>
+                <li class="feature-item">
+                  Best risk adjusted returns
+                  <div class="feature-item-details">
+                    Insurance layer buys bad debt in case of any delays.
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section faq">
         <div class="container">
           <div class="faq-content">
-            <h2 class="faq-title">Secure. Onchain.</h2>
+            <h2 class="faq-title">Secure.<br>Onchain.</h2>
             <p class="faq-description">
               Lenders enjoy defi's composability with treasury backed risk covers. Enjoy best in class yields on
               stablecoins. Withdraw anytime.
@@ -403,5 +477,89 @@ ${message}
         <p class="copyright">© 2025 Innflux, Inc. All rights reserved.</p>
       </div>
     </footer>
+
+    <script>
+      // Inertia-based smooth scrolling
+      let target = 0;
+      let current = 0;
+      let ease = 0.075;
+      let rafId = null;
+      let isManualScrolling = false;
+      
+      const content = document.documentElement;
+      
+      function lerp(start, end, t) {
+        return start * (1 - t) + end * t;
+      }
+      
+      function setTransform(element, y) {
+        element.style.transform = `translate3d(0, ${-y}px, 0)`;
+      }
+      
+      function smoothScroll() {
+        // Update current position with easing
+        current = lerp(current, target, ease);
+        
+        // Round to 2 decimal places to avoid floating point issues
+        current = parseFloat(current.toFixed(2));
+        
+        // Update scroll position
+        setTransform(content, current);
+        
+        // Update scroll position for links and other elements that depend on scroll position
+        document.documentElement.style.setProperty('--scroll-position', `${current}px`);
+        
+        // Continue animation if not close enough to target
+        if (Math.abs(target - current) > 0.1) {
+          rafId = requestAnimationFrame(smoothScroll);
+        }
+      }
+      
+      // Handle manual scrolling
+      window.addEventListener('scroll', () => {
+        if (!isManualScrolling) {
+          target = window.scrollY;
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(smoothScroll);
+        }
+      });
+      
+      // Handle smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetElement = document.querySelector(anchor.getAttribute('href'));
+          if (targetElement) {
+            isManualScrolling = true;
+            const targetPosition = targetElement.offsetTop;
+            target = targetPosition;
+            rafId = requestAnimationFrame(smoothScroll);
+            setTimeout(() => {
+              isManualScrolling = false;
+            }, 100);
+          }
+        });
+      });
+      
+      // Initialize smooth scrolling
+      target = window.scrollY;
+      current = target;
+      smoothScroll();
+
+      // Handle window resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        cancelAnimationFrame(rafId);
+        
+        resizeTimeout = setTimeout(() => {
+          target = window.scrollY;
+          current = target;
+          smoothScroll();
+        }, 100);
+      });
+      
+      // ... rest of existing scripts ...
+    </script>
   </body>
 </html>

@@ -1,8 +1,12 @@
 /* Reset and base styles */
-* {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -11,9 +15,8 @@ body {
   color: #ffffff;
   line-height: 1.5;
   overflow-x: hidden;
-  margin: 0;
-  background: #000000;
-  min-height: 100vh;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -73,20 +76,20 @@ section .container {
 }
 
 .cta-button {
-  font-family: "Gotham HTF-Book", Helvetica;
-  font-size: 14px;
-  color: #ffffff;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  padding: 8px 20px;
+  background-color: #9affe0;
+  color: #003629;
+  border: none;
+  border-radius: 100px;
+  padding: 12px 24px;
+  font-family: "Gotham-Book", Helvetica;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  background-color: #ffffff;
+  color: #000000;
 }
 
 /* Hero section */
@@ -231,6 +234,25 @@ section .container {
   transition: all 0.3s ease;
 }
 
+.feature-column:nth-child(2) {
+  background-color: #9affe0;
+}
+
+.feature-column:nth-child(2) .feature-title,
+.feature-column:nth-child(2) .feature-description,
+.feature-column:nth-child(2) .feature-item,
+.feature-column:nth-child(2) .feature-item-details {
+  color: #003629;
+}
+
+.feature-column:nth-child(2) .feature-item {
+  border-bottom: 1px solid rgba(0, 54, 41, 0.3);
+}
+
+.feature-column:nth-child(2) .feature-item:hover {
+  color: #000000;
+}
+
 .feature-title {
   font-family: "Gotham-Book", Helvetica;
   font-weight: 400;
@@ -238,6 +260,7 @@ section .container {
   font-size: 60px;
   line-height: 60px;
   margin-bottom: 20px;
+  margin-top: 0;
 }
 
 .feature-description {
@@ -251,6 +274,8 @@ section .container {
 
 .feature-list {
   list-style-type: none;
+  padding-left: 0;
+  margin-top: 40px;
 }
 
 .feature-item {
@@ -285,7 +310,6 @@ section .container {
   font-size: 16px;
   line-height: 24px;
   opacity: 0;
-  padding-left: 30px;
   margin-top: 0;
 }
 
@@ -304,18 +328,16 @@ section .container {
   color: #ffffff;
 }
 
-/* FAQ section */
+/* FAQ Section */
 .faq {
-  background: #000;
   padding: 80px 0;
 }
 
 .faq .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 120px;
-  align-items: flex-start;
-  max-width: 1800px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 42px;
 }
@@ -325,64 +347,72 @@ section .container {
 }
 
 .faq-title {
-  font-size: 64px;
-  color: #fff;
+  font-family: "Gotham-Book", Helvetica;
+  font-size: 60px;
+  line-height: 72px;
+  color: #ffffff;
   margin-bottom: 24px;
 }
 
 .faq-description {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 60px;
+  font-family: "Gotham-Book", Helvetica;
+  font-size: 20px;
+  line-height: 32px;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
 }
 
 .faq-list {
-  flex: 0 1 600px;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 24px 0;
   cursor: pointer;
-  position: relative;
 }
 
 .faq-question {
+  font-family: "Gotham-Book", Helvetica;
   font-size: 20px;
-  color: #fff;
-  margin: 0;
-  padding-right: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  padding-right: 32px;
+  font-weight: 300;
 }
 
-.faq-question::after {
-  content: '+';
+.faq-question:after {
+  content: "+";
   position: absolute;
   right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 24px;
-  color: #fff;
-  transition: transform 0.3s ease;
+  color: #ffffff;
 }
 
-.faq-item.active .faq-question::after {
-  transform: rotate(45deg);
+.faq-item.active .faq-question:after {
+  content: "-";
 }
 
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-  color: rgba(255, 255, 255, 0.7);
+  transition: max-height 0.3s ease-out;
+  font-family: "Gotham-Book", Helvetica;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  padding-right: 32px;
 }
 
 .faq-item.active .faq-answer {
-  max-height: 1000px;
-  padding-top: 20px;
+  max-height: 500px;
+  margin-top: 16px;
 }
 
 .see-more {
@@ -805,7 +835,7 @@ section .container {
 
 /* How It Works Section */
 .how-it-works {
-  padding: 100px 0;
+  padding-top: 100px;
   background: #000;
   color: #fff;
 }
@@ -1116,5 +1146,21 @@ main {
 @media (max-width: 768px) {
   .hero .container {
     padding-top: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .faq .container {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .faq-content {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .faq-description {
+    margin: 0 auto;
   }
 }
