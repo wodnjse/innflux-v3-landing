@@ -5,6 +5,19 @@
     <meta charset="utf-8" />
     <title>Innflux - World's First Composable Credit Layer</title>
     <link rel="stylesheet" href="style.css" />
+    <script>
+      function openModal() {
+        const modal = document.getElementById('earlyAccessModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeModal() {
+        const modal = document.getElementById('earlyAccessModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    </script>
   </head>
   <body>
     
@@ -21,22 +34,30 @@
     <main>
       <section class="hero">
         <div class="gradient-follow"></div>
-        <div class="container">
-          <div class="hero-content">
-            <h2 class="hero-title">Unsecured Institutional Lending</h2>
-            <p class="hero-subtitle">Powered by DeFi</p>
-            <div class="cards-container">
-              <div class="card">
-                <div class="card-icon"></div>
-                <p class="card-text">A unified risk score from all on and off chain data.</p>
+        <div class="hero-content">
+          <h2 class="hero-title">Unsecured Institutional Lending</h2>
+          <p class="hero-subtitle">Powered by DeFi</p>
+          <p class="hero-description">Innflux is the world's first composable credit layer. Supply, borrow, and unlock institutional liquidity.</p>
+          <div class="cards-container">
+            <div class="card">
+              <div class="card-content">
+                <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
+                <h3>Automated Risk Engine</h3>
+                <p class="card-text">One unified risk score to credit risk businesses utilising all available on-chain and off-chain indicators.</p>
               </div>
-              <div class="card">
-                <div class="card-icon"></div>
-                <p class="card-text">Unified onchain & off-chain credit infrastructure.</p>
+            </div>
+            <div class="card">
+              <div class="card-content">
+                <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
+                <h3>Composable Collateral</h3>
+                <p class="card-text">Deposit USDT or Staked AMM LP positions as collateral. RWA yield without unwinding AMM positions.</p>
               </div>
-              <div class="card">
-                <div class="card-icon"></div>
-                <p class="card-text">Permissionless money markets powering global trade.</p>
+            </div>
+            <div class="card">
+              <div class="card-content">
+                <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
+                <h3>Permissionless Lending</h3>
+                <p class="card-text">Unlocking retail Defi liquidity for TradeFi credit lines.</p>
               </div>
             </div>
           </div>
@@ -45,13 +66,24 @@
 
       <section class="how-it-works">
         <div class="container">
-          <h2 class="section-title">How It Works</h2>
-          <div class="steps-container">
-            <div class="steps-visualization">
-              <img src="./structure.png" alt="Innflux Protocol Flow" class="flow-diagram" />
+          <div class="how-it-works-header">
+            <h2 class="section-title">How it Works</h2>
+          </div>
+          <div class="steps-visualization">
+            <div class="flow-diagram-container">
+              <img src="./structure1.png" alt="Innflux Protocol Flow Step 1" class="flow-diagram active" data-step="1" />
+              <img src="./structure2.png" alt="Innflux Protocol Flow Step 2" class="flow-diagram" data-step="2" />
+              <img src="./structure3.png" alt="Innflux Protocol Flow Step 3" class="flow-diagram" data-step="3" />
             </div>
+          </div>
+          <div class="step-numbers">
+            <span class="active">01</span>
+            <span>02</span>
+            <span>03</span>
+          </div>
+          <div class="steps-container">
             <div class="steps-description">
-              <div class="step-item active" data-step="01">
+              <div class="step-item initial-active" data-step="01">
                 <h3>Deposit USDT or LP NFT</h3>
                 <p>Earn yield by depositing USDT or LP NFT into our protocol. Your deposits are secured by smart contracts and can be withdrawn anytime. Each deposit is carefully managed with real-time risk assessment and automated yield optimization.</p>
               </div>
@@ -96,33 +128,53 @@
               <p class="feature-description">Uncollateralised Institutional Credit in minutes.</p>
               <ul class="feature-list">
                 <li class="feature-item">
-                  Credit lines
-                  <div class="feature-item-details">
-                    $250k–$10M with dynamic quotes.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Credit lines
+                      <div class="feature-item-details">
+                        $250k–$10M with dynamic quotes.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Hybrid scoring
-                  <div class="feature-item-details">
-                    on-chain cash-flow + off-chain bureaus + custom weights. <br>Powered by FluxScore.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Hybrid scoring
+                      <div class="feature-item-details">
+                        on-chain cash-flow + off-chain bureaus + custom weights. <br>Powered by FluxScore.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  No crypto collateral
-                  <div class="feature-item-details">
-                    Trade history backed lines.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      No crypto collateral
+                      <div class="feature-item-details">
+                        Trade history backed lines.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Built in fiat ramps
-                  <div class="feature-item-details">
-                    bridge secured credit lines to fiat instantly.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Built in fiat ramps
+                      <div class="feature-item-details">
+                        bridge secured credit lines to fiat instantly.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Fully Compliant
-                  <div class="feature-item-details">
-                    Innflux monitors all lender wallets for AML, FATCA compliance checks.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Fully Compliant
+                      <div class="feature-item-details">
+                        Innflux monitors all lender wallets for AML, FATCA compliance checks.
+                      </div>
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -132,33 +184,53 @@
               <p class="feature-description">Lend Anything. Earn Real-World USDC Yield.</p>
               <ul class="feature-list">
                 <li class="feature-item">
-                  Plug in any asset
-                  <div class="feature-item-details">
-                    stablecoins, out-of-range Uni V3 LP ERC 721's.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Plug in any asset
+                      <div class="feature-item-details">
+                        stablecoins, out-of-range Uni V3 LP ERC 721's.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  DeFi composability
-                  <div class="feature-item-details">
-                    Get composable tokens in exchange for liquidity and wrap your receipt token to farm, leverage, or restake elsewhere.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      DeFi composability
+                      <div class="feature-item-details">
+                        Get composable tokens in exchange for liquidity and wrap your receipt token to farm, leverage, or restake elsewhere.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Instant exits
-                  <div class="feature-item-details">
-                    withdraw any time with zero lock-ups.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Instant exits
+                      <div class="feature-item-details">
+                        withdraw any time with zero lock-ups.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Transparent risk
-                  <div class="feature-item-details">
-                    see borrower score and payment streams onchain.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Transparent risk
+                      <div class="feature-item-details">
+                        see borrower score and payment streams onchain.
+                      </div>
+                    </div>
                   </div>
                 </li>
                 <li class="feature-item">
-                  Best risk adjusted returns
-                  <div class="feature-item-details">
-                    Insurance layer buys bad debt in case of any delays.
+                  <div class="feature-item-content">
+                    <div class="feature-item-text">
+                      Best risk adjusted returns
+                      <div class="feature-item-details">
+                        Insurance layer buys bad debt in case of any delays.
+                      </div>
+                    </div>
                   </div>
                 </li>
               </ul>
@@ -222,7 +294,7 @@
             <div class="email-input-container">
               <input type="email" placeholder="Email Address" class="cta-email-input" />
             </div>
-            <a href="#" class="cta-btn" onclick="openModal()">Early Access</a>
+            <button class="cta-btn" onclick="openModal()">Early Access</button>
           </div>
         </div>
       </section>
@@ -236,14 +308,14 @@
             <div class="form-group">
               <input type="text" id="name" placeholder="Name" required>
             </div>
-            <div class="form-group">
-              <input type="email" id="email" placeholder="Email" required>
+            <div class="form-group contact-group">
+              <input type="email" id="email" placeholder="Email" class="contact-input">
             </div>
-            <div class="form-group">
-              <input type="text" id="telegram" placeholder="Telegram Username" required>
+            <div class="form-group contact-group">
+              <input type="text" id="telegram" placeholder="Telegram Username" class="contact-input">
             </div>
-            <div class="form-group">
-              <input type="text" id="x" placeholder="X (Twitter) Username" required>
+            <div class="form-group contact-group">
+              <input type="text" id="x" placeholder="X (Twitter) Username" class="contact-input">
             </div>
             <div class="form-group">
               <textarea id="message" placeholder="Are you interested to be a lender or borrower on innflux?" rows="4" required></textarea>
@@ -254,6 +326,14 @@
       </div>
 
       <script>
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+          const modal = document.getElementById('earlyAccessModal');
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
         // Handle FAQ interactions
         document.querySelectorAll('.faq-item').forEach(item => {
           item.addEventListener('click', () => {
@@ -357,31 +437,69 @@
 
         // Handle How It Works section interactions
         const stepItems = document.querySelectorAll('.step-item');
+        const flowDiagrams = document.querySelectorAll('.flow-diagram');
         const stepNumbers = document.querySelectorAll('.step-numbers span');
-        let currentStep = 0;
-
+        
         function activateStep(index) {
-          // Deactivate all steps
-          stepItems.forEach(item => item.classList.remove('active'));
+          // Remove all active and initial-active classes
+          stepItems.forEach(item => {
+            item.classList.remove('active');
+            item.classList.remove('initial-active');
+          });
+          flowDiagrams.forEach(diagram => diagram.classList.remove('active'));
           stepNumbers.forEach(num => num.classList.remove('active'));
           
-          // Activate current step
+          // Add active class to selected items
           stepItems[index].classList.add('active');
+          flowDiagrams[index].classList.add('active');
           stepNumbers[index].classList.add('active');
-          
-          currentStep = index;
         }
-
-        // Initialize first step
-        activateStep(0);
-
-        // Add click handlers to step numbers
-        stepNumbers.forEach((num, index) => {
-          num.addEventListener('click', () => {
-            activateStep(index);
+        
+          // Add click event listeners to step items for desktop
+          stepItems.forEach((item, index) => {
+            const stepTitle = item.querySelector('h3');
+            stepTitle.addEventListener('click', () => {
+              if (window.innerWidth > 768) {
+                activateStep(index);
+              }
+            });
           });
-        });
 
+          // Add click event listeners to step numbers for mobile
+          stepNumbers.forEach((number, index) => {
+            number.addEventListener('click', () => {
+              if (window.innerWidth <= 768) {
+                activateStep(index);
+              }
+            });
+            
+            // Add touch event for better mobile response
+            number.addEventListener('touchend', (e) => {
+              e.preventDefault();
+              if (window.innerWidth <= 768) {
+                activateStep(index);
+              }
+            });
+          });
+
+          // Initialize first step with initial-active class
+          stepItems[0].classList.add('initial-active');
+          flowDiagrams[0].classList.add('active');
+          stepNumbers[0].classList.add('active');
+
+          // Handle window resize
+          window.addEventListener('resize', () => {
+            const activeIndex = Array.from(stepItems).findIndex(item => 
+              item.classList.contains('active') || item.classList.contains('initial-active')
+            );
+            if (activeIndex === -1) {
+              // If no step is active, keep the initial state
+              stepItems[0].classList.add('initial-active');
+              flowDiagrams[0].classList.add('active');
+              stepNumbers[0].classList.add('active');
+            }
+          });
+        
         // Handle terms agreement
         const termsCheckbox = document.querySelector('.checkbox-container input');
         const proceedButton = document.querySelector('.proceed-btn');
@@ -393,71 +511,22 @@
         // Initialize proceed button state
         proceedButton.disabled = true;
 
-        // Modal functionality
-        function openModal() {
-          const modal = document.getElementById('earlyAccessModal');
-          modal.style.display = 'flex';
-          document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-        
-        function closeModal() {
-          const modal = document.getElementById('earlyAccessModal');
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto'; // Enable scrolling
-        }
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-          const modal = document.getElementById('earlyAccessModal');
-          if (event.target === modal) {
-            closeModal();
-          }
-        });
-        
-        // Form submission
-        document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          // Get form values
-          const name = document.getElementById('name').value;
-          const email = document.getElementById('email').value;
-          const telegram = document.getElementById('telegram').value;
-          const xUsername = document.getElementById('x').value;
-          const message = document.getElementById('message').value;
-          
-          // Create email body
-          const emailBody = `
-New Early Access Request:
-
-Name: ${name}
-Email: ${email}
-Telegram: ${telegram}
-X (Twitter): ${xUsername}
-
-Message:
-${message}
-          `.trim();
-          
-          // Create mailto link
-          const mailtoLink = `mailto:jaewon@innflux.xyz?subject=New Early Access Request from ${name}&body=${encodeURIComponent(emailBody)}`;
-          
-          // Open email client
-          window.location.href = mailtoLink;
-          
-          // Close modal after small delay
-          setTimeout(() => {
-            alert('Thank you for your interest! Redirecting to email client...');
-            closeModal();
-            // Reset form
-            document.getElementById('earlyAccessForm').reset();
-          }, 500);
+        // Add validation for contact methods
+        const contactInputs = document.querySelectorAll('.contact-input');
+        contactInputs.forEach(input => {
+          input.addEventListener('input', function() {
+            const hasValue = Array.from(contactInputs).some(input => input.value.trim() !== '');
+            contactInputs.forEach(input => {
+              input.required = !hasValue;
+            });
+          });
         });
       </script>
     </main>
 
     <footer class="footer">
       <div class="container">
-        <h2 class="footer-title">Credit Expansion across TradFi <br />and DeFi starts here.</h2>
+        <h2 class="footer-title">Credit Expansion across TradFi and DeFi starts here.</h2>
         <div class="footer-content">
           <div class="footer-logo">
             <img class="footer-logo-icon" src="https://c.animaapp.com/b3FISGYA/img/icon@2x.png" alt="Innflux logo" />
@@ -478,7 +547,70 @@ ${message}
       </div>
     </footer>
 
+    <div id="successToast" class="toast-notification">
+      <span class="success-icon">✓</span>
+      <span>Thank you for your interest! Your request has been submitted successfully.</span>
+    </div>
+
     <script>
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        const modal = document.getElementById('earlyAccessModal');
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Form submission
+      document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const telegram = document.getElementById('telegram').value;
+        const xUsername = document.getElementById('x').value;
+        const message = document.getElementById('message').value;
+
+        // Check if at least one contact method is provided
+        if (!email && !telegram && !xUsername) {
+          alert('Please provide at least one contact method (Email, Telegram, or X Username)');
+          return;
+        }
+        
+        // Create email body
+        const emailBody = `
+New Early Access Request:
+
+Name: ${name}
+${email ? 'Email: ' + email : ''}
+${telegram ? 'Telegram: ' + telegram : ''}
+${xUsername ? 'X (Twitter): ' + xUsername : ''}
+
+Message:
+${message}
+        `.trim();
+
+        // Show success toast
+        const toast = document.getElementById('successToast');
+        toast.classList.add('show');
+
+        // Close modal and reset form
+        closeModal();
+        e.target.reset();
+
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+
+        // Create and open mailto link
+        const mailtoLink = `mailto:jaewon@innflux.xyz?subject=New Early Access Request from ${name}&body=${encodeURIComponent(emailBody)}`;
+        setTimeout(() => {
+          window.location.href = mailtoLink;
+        }, 500);
+      });
+
       // Inertia-based smooth scrolling
       let target = 0;
       let current = 0;
