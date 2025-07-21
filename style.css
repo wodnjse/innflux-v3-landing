@@ -36,18 +36,25 @@ section .container {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 0;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.header.hidden {
+  transform: translateY(-100%);
 }
 
 .header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 42px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .logo {
@@ -748,23 +755,31 @@ section .container {
 
 /* Original CTA button styles */
 .cta-btn {
-  display: inline-block;
-  background-color: #ffffff;
-  color: #000000;
-  font-family: "Gotham-Bold", Helvetica;
-  font-weight: 700;
+  background: linear-gradient(135deg, rgba(154, 255, 224, 0.2) 0%, rgba(154, 255, 224, 0.1) 100%);
+  border: 1px solid rgba(154, 255, 224, 0.2);
+  border-radius: 8px;
+  color: #9affe0;
   font-size: 16px;
-  line-height: 16px;
-  padding: 18px 40px;
-  border-radius: 50px;
-  text-decoration: none;
-  position: relative;
+  padding: 12px 24px;
+  cursor: pointer;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  width: auto;
+  display: inline-block;
 }
 
 .cta-btn:hover {
-  border: 2px solid #00ffc8;
+  background: linear-gradient(135deg, rgba(154, 255, 224, 0.3) 0%, rgba(154, 255, 224, 0.15) 100%);
+  border-color: rgba(154, 255, 224, 0.3);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .cta-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
 }
 
 /* Footer */
@@ -1536,8 +1551,7 @@ section .container {
 
 /* Adjust the main content to account for fixed header */
 main {
-  padding-top: 0;
-  margin-top: 0;
+  padding-top: 80px;
 }
 
 /* Modal Styles */

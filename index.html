@@ -10,6 +10,20 @@
         const modal = document.getElementById('earlyAccessModal');
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        // Clear form when opening from header button
+        document.getElementById('earlyAccessForm').reset();
+      }
+      
+      function openModalFromCTA() {
+        const modal = document.getElementById('earlyAccessModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Get email from CTA input if exists
+        const ctaEmailInput = document.querySelector('.cta-email-input');
+        if (ctaEmailInput && ctaEmailInput.value) {
+          document.getElementById('email').value = ctaEmailInput.value;
+        }
       }
       
       function closeModal() {
@@ -18,6 +32,7 @@
         document.body.style.overflow = 'auto';
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
   </head>
   <body>
     
@@ -34,26 +49,26 @@
     <main>
       <section class="hero">
         <div class="gradient-follow"></div>
-        <div class="hero-content">
-          <h2 class="hero-title">Unsecured Institutional Lending</h2>
-          <p class="hero-subtitle">Powered by DeFi</p>
+          <div class="hero-content">
+            <h2 class="hero-title">Unsecured Institutional Lending</h2>
+            <p class="hero-subtitle">Powered by DeFi</p>
           <p class="hero-description">Innflux is the world's first composable credit layer. Supply, borrow, and unlock institutional liquidity.</p>
-          <div class="cards-container">
-            <div class="card">
+            <div class="cards-container">
+              <div class="card">
               <div class="card-content">
                 <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
                 <h3>Automated Risk Engine</h3>
                 <p class="card-text">One unified risk score to credit risk businesses utilising all available on-chain and off-chain indicators.</p>
               </div>
-            </div>
-            <div class="card">
+              </div>
+              <div class="card">
               <div class="card-content">
                 <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
                 <h3>Composable Collateral</h3>
                 <p class="card-text">Deposit USDT or Staked AMM LP positions as collateral. RWA yield without unwinding AMM positions.</p>
               </div>
-            </div>
-            <div class="card">
+              </div>
+              <div class="card">
               <div class="card-content">
                 <img src="https://c.animaapp.com/b3FISGYA/img/icon-1@2x.png" alt="Innflux logo" class="card-logo">
                 <h3>Permissionless Lending</h3>
@@ -69,18 +84,18 @@
           <div class="how-it-works-header">
             <h2 class="section-title">How it Works</h2>
           </div>
-          <div class="steps-visualization">
+            <div class="steps-visualization">
             <div class="flow-diagram-container">
               <img src="./structure1.png" alt="Innflux Protocol Flow Step 1" class="flow-diagram active" data-step="1" />
               <img src="./structure2.png" alt="Innflux Protocol Flow Step 2" class="flow-diagram" data-step="2" />
               <img src="./structure3.png" alt="Innflux Protocol Flow Step 3" class="flow-diagram" data-step="3" />
             </div>
           </div>
-          <div class="step-numbers">
-            <span class="active">01</span>
-            <span>02</span>
-            <span>03</span>
-          </div>
+              <div class="step-numbers">
+                <span class="active">01</span>
+                <span>02</span>
+                <span>03</span>
+              </div>
           <div class="steps-container">
             <div class="steps-description">
               <div class="step-item initial-active" data-step="01">
@@ -291,10 +306,7 @@
               Be part of the first wave to experience payment finance on-chain. Deploy stablecoins into short-term
               trade deals with real-world backing and risk protection.
             </p>
-            <div class="email-input-container">
-              <input type="email" placeholder="Email Address" class="cta-email-input" />
-            </div>
-            <button class="cta-btn" onclick="openModal()">Early Access</button>
+            <button class="cta-btn" onclick="openModalFromCTA()">Early Access</button>
           </div>
         </div>
       </section>
@@ -326,198 +338,282 @@
       </div>
 
       <script>
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-          const modal = document.getElementById('earlyAccessModal');
-          if (event.target === modal) {
+        document.addEventListener('DOMContentLoaded', function() {
+          // Header scroll behavior
+          const headerScroll = {
+            lastY: window.scrollY,
+            lastTime: Date.now(),
+            header: document.querySelector('.header'),
+            threshold: 50,
+            timeout: 150,
+            ticking: false,
+
+            handleScroll() {
+              const currentY = window.scrollY;
+              const currentTime = Date.now();
+              const timeDiff = currentTime - this.lastTime;
+              
+              if (timeDiff > this.timeout) {
+                if (currentY > this.lastY && currentY > this.threshold) {
+                  this.header.classList.add('hidden');
+                } else {
+                  this.header.classList.remove('hidden');
+                }
+                this.lastTime = currentTime;
+              }
+              this.lastY = currentY;
+            },
+
+            init() {
+              window.addEventListener('scroll', () => {
+                if (!this.ticking) {
+                  window.requestAnimationFrame(() => {
+                    this.handleScroll();
+                    this.ticking = false;
+                  });
+                  this.ticking = true;
+                }
+              });
+            }
+          };
+
+          // Initialize header scroll behavior
+          headerScroll.init();
+
+          // 1. Supabase 클라이언트 생성
+          const supabaseUrl = 'https://kdxjkolsyofpxalcrxwg.supabase.co'; // 본인 프로젝트 URL로 변경
+          const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkeGprb2xzeW9mcHhhbGNyeHdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwNzg5NzMsImV4cCI6MjA2ODY1NDk3M30.Kdtp2iZZuzjcqxdodJ4VCDNvgcIMWRSoUWFcc6SYTlw'; // 본인 anon public key로 변경
+          const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+          // 2. 폼 제출 이벤트에 Supabase 연동 추가
+          document.getElementById('earlyAccessForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // 입력값 수집
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const telegram = document.getElementById('telegram').value;
+            const xUsername = document.getElementById('x').value;
+            const message = document.getElementById('message').value;
+
+            if (!email && !telegram && !xUsername) {
+              alert('Please provide at least one contact method (Email, Telegram, or X Username)');
+              return;
+            }
+
+            // Supabase에 데이터 저장
+            const { data, error } = await supabase
+              .from('early_access')
+              .insert([
+                { name, email, telegram, x: xUsername, message }
+              ]);
+
+            if (error) {
+              alert('저장에 실패했습니다: ' + error.message);
+              return;
+            }
+
+            // 성공 시 토스트 알림
+            const toast = document.getElementById('successToast');
+            toast.classList.add('show');
             closeModal();
-          }
-        });
-
-        // Handle FAQ interactions
-        document.querySelectorAll('.faq-item').forEach(item => {
-          item.addEventListener('click', () => {
-            // Close all other items
-            document.querySelectorAll('.faq-item').forEach(otherItem => {
-              if (otherItem !== item) {
-                otherItem.classList.remove('active');
-              }
-            });
-            // Toggle current item
-            item.classList.toggle('active');
-          });
-        });
-        
-        // Handle feature item interactions
-        document.querySelectorAll('.feature-item').forEach(item => {
-          item.addEventListener('mouseenter', () => {
-            // Remove active class from all items
-            document.querySelectorAll('.feature-item').forEach(i => {
-              i.classList.remove('active');
-            });
-            // Add active class to current item
-            item.classList.add('active');
-          });
-        });
-        
-        // Reset feature items when mouse leaves the feature column
-        document.querySelectorAll('.feature-column').forEach(column => {
-          column.addEventListener('mouseleave', () => {
-            document.querySelectorAll('.feature-item').forEach(item => {
-              item.classList.remove('active');
-            });
-          });
-        });
-
-        // Handle gradient following mouse movement
-        const hero = document.querySelector('.hero');
-        const gradient = document.querySelector('.gradient-follow');
-        const cardsContainer = document.querySelector('.cards-container');
-        
-        let currentX = 0;
-        let currentY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        // Linear interpolation function
-        function lerp(start, end, factor) {
-          return start + (end - start) * factor;
-        }
-        
-        function updateGradientPosition(e) {
-          const rect = hero.getBoundingClientRect();
-          const cardsRect = cardsContainer.getBoundingClientRect();
-          
-          // Hide gradient if scrolled past half of the cards container
-          if (cardsRect.bottom < window.innerHeight * 0.7) {
-            gradient.style.opacity = '0';
-            return;
-          }
-          
-          targetX = e.clientX - rect.left;
-          targetY = e.clientY - rect.top;
-          
-          if (!gradient.style.opacity || gradient.style.opacity === '0') {
-            currentX = targetX;
-            currentY = targetY;
-            gradient.style.opacity = '1';
-          }
-        }
-        
-        function handleMouseLeave() {
-          gradient.style.opacity = '0';
-        }
-
-        // Add scroll event listener
-        window.addEventListener('scroll', () => {
-          const cardsRect = cardsContainer.getBoundingClientRect();
-          if (cardsRect.bottom < window.innerHeight * 0.7) {
-            gradient.style.opacity = '0';
-          } else if (cardsRect.top > 0) {
-            gradient.style.opacity = '1';
-          }
-        });
-
-        function animate() {
-          if (gradient.style.opacity === '1') {
-            // Smooth movement with lerp
-            currentX = lerp(currentX, targetX, 0.1);
-            currentY = lerp(currentY, targetY, 0.1);
-            
-            gradient.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
-          }
-          requestAnimationFrame(animate);
-        }
-        
-        hero.addEventListener('mousemove', updateGradientPosition);
-        hero.addEventListener('mouseleave', handleMouseLeave);
-        
-        // Start the animation loop
-        animate();
-
-        // Handle How It Works section interactions
-        const stepItems = document.querySelectorAll('.step-item');
-        const flowDiagrams = document.querySelectorAll('.flow-diagram');
-        const stepNumbers = document.querySelectorAll('.step-numbers span');
-        
-        function activateStep(index) {
-          // Remove all active and initial-active classes
-          stepItems.forEach(item => {
-            item.classList.remove('active');
-            item.classList.remove('initial-active');
-          });
-          flowDiagrams.forEach(diagram => diagram.classList.remove('active'));
-          stepNumbers.forEach(num => num.classList.remove('active'));
-          
-          // Add active class to selected items
-          stepItems[index].classList.add('active');
-          flowDiagrams[index].classList.add('active');
-          stepNumbers[index].classList.add('active');
-        }
-        
-          // Add click event listeners to step items for desktop
-          stepItems.forEach((item, index) => {
-            const stepTitle = item.querySelector('h3');
-            stepTitle.addEventListener('click', () => {
-              if (window.innerWidth > 768) {
-                activateStep(index);
-              }
-            });
+            e.target.reset();
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
           });
 
-          // Add click event listeners to step numbers for mobile
-          stepNumbers.forEach((number, index) => {
-            number.addEventListener('click', () => {
-              if (window.innerWidth <= 768) {
-                activateStep(index);
-              }
-            });
-            
-            // Add touch event for better mobile response
-            number.addEventListener('touchend', (e) => {
-              e.preventDefault();
-              if (window.innerWidth <= 768) {
-                activateStep(index);
-              }
-            });
-          });
-
-          // Initialize first step with initial-active class
-          stepItems[0].classList.add('initial-active');
-          flowDiagrams[0].classList.add('active');
-          stepNumbers[0].classList.add('active');
-
-          // Handle window resize
-          window.addEventListener('resize', () => {
-            const activeIndex = Array.from(stepItems).findIndex(item => 
-              item.classList.contains('active') || item.classList.contains('initial-active')
-            );
-            if (activeIndex === -1) {
-              // If no step is active, keep the initial state
-              stepItems[0].classList.add('initial-active');
-              flowDiagrams[0].classList.add('active');
-              stepNumbers[0].classList.add('active');
+          // Close modal when clicking outside
+          window.addEventListener('click', function(event) {
+            const modal = document.getElementById('earlyAccessModal');
+            if (event.target === modal) {
+              closeModal();
             }
           });
-        
-        // Handle terms agreement
-        const termsCheckbox = document.querySelector('.checkbox-container input');
-        const proceedButton = document.querySelector('.proceed-btn');
 
-        termsCheckbox.addEventListener('change', (e) => {
-          proceedButton.disabled = !e.target.checked;
-        });
+          // Handle FAQ interactions
+          document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+              // Close all other items
+              document.querySelectorAll('.faq-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                  otherItem.classList.remove('active');
+                }
+              });
+              // Toggle current item
+              item.classList.toggle('active');
+            });
+          });
+          
+          // Handle feature item interactions
+          document.querySelectorAll('.feature-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+              // Remove active class from all items
+              document.querySelectorAll('.feature-item').forEach(i => {
+                i.classList.remove('active');
+              });
+              // Add active class to current item
+              item.classList.add('active');
+            });
+          });
+          
+          // Reset feature items when mouse leaves the feature column
+          document.querySelectorAll('.feature-column').forEach(column => {
+            column.addEventListener('mouseleave', () => {
+              document.querySelectorAll('.feature-item').forEach(item => {
+                item.classList.remove('active');
+              });
+            });
+          });
 
-        // Initialize proceed button state
-        proceedButton.disabled = true;
+          // Handle gradient following mouse movement
+          const hero = document.querySelector('.hero');
+          const gradient = document.querySelector('.gradient-follow');
+          const cardsContainer = document.querySelector('.cards-container');
+          
+          let currentX = 0;
+          let currentY = 0;
+          let targetX = 0;
+          let targetY = 0;
 
-        // Add validation for contact methods
-        const contactInputs = document.querySelectorAll('.contact-input');
-        contactInputs.forEach(input => {
-          input.addEventListener('input', function() {
-            const hasValue = Array.from(contactInputs).some(input => input.value.trim() !== '');
-            contactInputs.forEach(input => {
-              input.required = !hasValue;
+          // Linear interpolation function
+          function lerp(start, end, factor) {
+            return start + (end - start) * factor;
+          }
+          
+          function updateGradientPosition(e) {
+            const rect = hero.getBoundingClientRect();
+            const cardsRect = cardsContainer.getBoundingClientRect();
+            
+            // Hide gradient if scrolled past half of the cards container
+            if (cardsRect.bottom < window.innerHeight * 0.7) {
+              gradient.style.opacity = '0';
+              return;
+            }
+            
+            targetX = e.clientX - rect.left;
+            targetY = e.clientY - rect.top;
+            
+            if (!gradient.style.opacity || gradient.style.opacity === '0') {
+              currentX = targetX;
+              currentY = targetY;
+              gradient.style.opacity = '1';
+            }
+          }
+          
+          function handleMouseLeave() {
+            gradient.style.opacity = '0';
+          }
+
+          // Add scroll event listener
+          window.addEventListener('scroll', () => {
+            const cardsRect = cardsContainer.getBoundingClientRect();
+            if (cardsRect.bottom < window.innerHeight * 0.7) {
+              gradient.style.opacity = '0';
+            } else if (cardsRect.top > 0) {
+              gradient.style.opacity = '1';
+            }
+          });
+
+          function animate() {
+            if (gradient.style.opacity === '1') {
+              // Smooth movement with lerp
+              currentX = lerp(currentX, targetX, 0.1);
+              currentY = lerp(currentY, targetY, 0.1);
+              
+              gradient.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+            }
+            requestAnimationFrame(animate);
+          }
+          
+          hero.addEventListener('mousemove', updateGradientPosition);
+          hero.addEventListener('mouseleave', handleMouseLeave);
+          
+          // Start the animation loop
+          animate();
+
+          // Handle How It Works section interactions
+          const stepItems = document.querySelectorAll('.step-item');
+          const flowDiagrams = document.querySelectorAll('.flow-diagram');
+          const stepNumbers = document.querySelectorAll('.step-numbers span');
+
+          function activateStep(index) {
+            // Remove all active and initial-active classes
+            stepItems.forEach(item => {
+              item.classList.remove('active');
+              item.classList.remove('initial-active');
+            });
+            flowDiagrams.forEach(diagram => diagram.classList.remove('active'));
+            stepNumbers.forEach(num => num.classList.remove('active'));
+            
+            // Add active class to selected items
+            stepItems[index].classList.add('active');
+            flowDiagrams[index].classList.add('active');
+            stepNumbers[index].classList.add('active');
+          }
+          
+            // Add click event listeners to step items for desktop
+            stepItems.forEach((item, index) => {
+              const stepTitle = item.querySelector('h3');
+              stepTitle.addEventListener('click', () => {
+                if (window.innerWidth > 768) {
+                  activateStep(index);
+                }
+              });
+            });
+
+            // Add click event listeners to step numbers for mobile
+            stepNumbers.forEach((number, index) => {
+              number.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                  activateStep(index);
+                }
+              });
+              
+              // Add touch event for better mobile response
+              number.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (window.innerWidth <= 768) {
+              activateStep(index);
+                }
+            });
+            });
+
+            // Initialize first step with initial-active class
+            stepItems[0].classList.add('initial-active');
+            flowDiagrams[0].classList.add('active');
+            stepNumbers[0].classList.add('active');
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+              const activeIndex = Array.from(stepItems).findIndex(item => 
+                item.classList.contains('active') || item.classList.contains('initial-active')
+              );
+              if (activeIndex === -1) {
+                // If no step is active, keep the initial state
+                stepItems[0].classList.add('initial-active');
+                flowDiagrams[0].classList.add('active');
+                stepNumbers[0].classList.add('active');
+              }
+          });
+
+          // Handle terms agreement
+          const termsCheckbox = document.querySelector('.checkbox-container input');
+          const proceedButton = document.querySelector('.proceed-btn');
+
+          termsCheckbox.addEventListener('change', (e) => {
+            proceedButton.disabled = !e.target.checked;
+          });
+
+          // Initialize proceed button state
+          proceedButton.disabled = true;
+
+          // Add validation for contact methods
+          const contactInputs = document.querySelectorAll('.contact-input');
+          contactInputs.forEach(input => {
+            input.addEventListener('input', function() {
+              const hasValue = Array.from(contactInputs).some(input => input.value.trim() !== '');
+              contactInputs.forEach(input => {
+                input.required = !hasValue;
+              });
             });
           });
         });
@@ -551,147 +647,5 @@
       <span class="success-icon">✓</span>
       <span>Thank you for your interest! Your request has been submitted successfully.</span>
     </div>
-
-    <script>
-      // Close modal when clicking outside
-      window.addEventListener('click', function(event) {
-        const modal = document.getElementById('earlyAccessModal');
-        if (event.target === modal) {
-          closeModal();
-        }
-      });
-
-      // Form submission
-      document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const telegram = document.getElementById('telegram').value;
-        const xUsername = document.getElementById('x').value;
-        const message = document.getElementById('message').value;
-
-        // Check if at least one contact method is provided
-        if (!email && !telegram && !xUsername) {
-          alert('Please provide at least one contact method (Email, Telegram, or X Username)');
-          return;
-        }
-        
-        // Create email body
-        const emailBody = `
-New Early Access Request:
-
-Name: ${name}
-${email ? 'Email: ' + email : ''}
-${telegram ? 'Telegram: ' + telegram : ''}
-${xUsername ? 'X (Twitter): ' + xUsername : ''}
-
-Message:
-${message}
-        `.trim();
-
-        // Show success toast
-        const toast = document.getElementById('successToast');
-        toast.classList.add('show');
-
-        // Close modal and reset form
-        closeModal();
-        e.target.reset();
-
-        // Hide toast after 3 seconds
-        setTimeout(() => {
-          toast.classList.remove('show');
-        }, 3000);
-
-        // Create and open mailto link
-        const mailtoLink = `mailto:jaewon@innflux.xyz?subject=New Early Access Request from ${name}&body=${encodeURIComponent(emailBody)}`;
-        setTimeout(() => {
-          window.location.href = mailtoLink;
-        }, 500);
-      });
-
-      // Inertia-based smooth scrolling
-      let target = 0;
-      let current = 0;
-      let ease = 0.075;
-      let rafId = null;
-      let isManualScrolling = false;
-      
-      const content = document.documentElement;
-      
-      function lerp(start, end, t) {
-        return start * (1 - t) + end * t;
-      }
-      
-      function setTransform(element, y) {
-        element.style.transform = `translate3d(0, ${-y}px, 0)`;
-      }
-      
-      function smoothScroll() {
-        // Update current position with easing
-        current = lerp(current, target, ease);
-        
-        // Round to 2 decimal places to avoid floating point issues
-        current = parseFloat(current.toFixed(2));
-        
-        // Update scroll position
-        setTransform(content, current);
-        
-        // Update scroll position for links and other elements that depend on scroll position
-        document.documentElement.style.setProperty('--scroll-position', `${current}px`);
-        
-        // Continue animation if not close enough to target
-        if (Math.abs(target - current) > 0.1) {
-          rafId = requestAnimationFrame(smoothScroll);
-        }
-      }
-      
-      // Handle manual scrolling
-      window.addEventListener('scroll', () => {
-        if (!isManualScrolling) {
-          target = window.scrollY;
-          cancelAnimationFrame(rafId);
-          rafId = requestAnimationFrame(smoothScroll);
-        }
-      });
-      
-      // Handle smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetElement = document.querySelector(anchor.getAttribute('href'));
-          if (targetElement) {
-            isManualScrolling = true;
-            const targetPosition = targetElement.offsetTop;
-            target = targetPosition;
-            rafId = requestAnimationFrame(smoothScroll);
-            setTimeout(() => {
-              isManualScrolling = false;
-            }, 100);
-          }
-        });
-      });
-      
-      // Initialize smooth scrolling
-      target = window.scrollY;
-      current = target;
-      smoothScroll();
-
-      // Handle window resize
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        cancelAnimationFrame(rafId);
-        
-        resizeTimeout = setTimeout(() => {
-          target = window.scrollY;
-          current = target;
-          smoothScroll();
-        }, 100);
-      });
-      
-      // ... rest of existing scripts ...
-    </script>
   </body>
 </html>
