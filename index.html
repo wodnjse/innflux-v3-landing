@@ -554,16 +554,16 @@
             stepItems.forEach((item, index) => {
               const stepTitle = item.querySelector('h3');
               stepTitle.addEventListener('click', () => {
-                if (window.innerWidth > 768) {
+                if (window.innerWidth > 1023) {
                   activateStep(index);
                 }
               });
             });
 
-            // Add click event listeners to step numbers for mobile
+            // Add click event listeners to step numbers for mobile and tablet
             stepNumbers.forEach((number, index) => {
               number.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 1023) {
                   activateStep(index);
                 }
               });
@@ -571,7 +571,7 @@
               // Add touch event for better mobile response
               number.addEventListener('touchend', (e) => {
                 e.preventDefault();
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 1023) {
               activateStep(index);
                 }
             });
