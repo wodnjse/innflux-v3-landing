@@ -2152,3 +2152,37 @@ main {
     padding: 12px 20px;
   }
 }
+
+@media (min-width: 1024px) {
+  .faq {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 64px;
+  }
+  .faq-content {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    padding-bottom: 0;
+  }
+  .faq-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1.1;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+  .faq-list {
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .faq-item:first-child {
+    margin-top: 60px;
+  }
+}
