@@ -1099,253 +1099,235 @@ section .container {
 .how-it-works {
   padding: 100px 0;
   background: #000;
-  min-height: 100vh;
+}
+
+/* Wrapper for sticky effect */
+.how-it-works-sticky-wrapper {
   position: relative;
+  height: 400vh; /* Increased total height for more scroll space */
 }
 
-.how-it-works .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 42px;
-  position: relative;
-}
-
-.how-it-works-header {
-  margin-bottom: 80px;
-  text-align: center;
-}
-
-.section-title {
-  font-size: 42px;
-  font-weight: 400;
-  color: #fff;
-  margin: 0;
-  position: relative;
-  z-index: 2;
-}
-
-/* Main content layout */
-.how-it-works-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-  position: relative;
-}
-
-/* Left side: Sticky text content */
-.steps-text-container {
+/* Sticky container for How it Works section */
+.how-it-works-sticky-container {
   position: sticky;
-  top: 120px;
-  height: fit-content;
+  top: -20vh; /* Start sticky effect from higher position */
   z-index: 10;
-}
-
-.steps-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 120px;
-}
-
-/* Right side: Visualization */
-.steps-visualization {
-  position: sticky;
-  top: 120px;
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.step-item {
-  opacity: 0.4;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(20px);
-  position: relative;
-}
-
-.step-item.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.step-item .step-number {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 16px;
-  font-weight: 500;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.step-item.active .step-number {
-  color: #9affe0;
-}
-
-.step-item h3 {
-  font-size: 28px;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0 0 20px 0;
-  font-weight: 500;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  line-height: 1.2;
-}
-
-.step-item.active h3 {
-  color: #fff;
-}
-
-.step-item.active h3::after {
-  content: '-';
-  color: #fff;
-}
-
-.step-item p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.6;
-}
-
-.step-item.active p {
-  color: rgba(255, 255, 255, 0.9);
-  opacity: 1;
-}
-
-.flow-diagram-container {
-  position: relative;
-  width: 600px;
-  height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flow-diagram {
-  position: absolute;
+  background: #000;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: scale(0.9);
+  min-height: 100vh;
 }
 
-.flow-diagram.active {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
-}
-
-.flow-diagram:first-child {
+/* Spacer to create scroll space for sticky effect */
+.how-it-works-spacer {
+  height: 300vh; /* Increased height for more scroll space */
+  background: transparent;
   position: relative;
-  visibility: visible;
-  opacity: 1;
-  transform: scale(1);
+  z-index: 1; /* Lower z-index so it doesn't interfere with subsequent sections */
 }
 
-/* Step numbers are now inline in the HTML structure */
-
-@media (max-width: 1400px) {
-  .how-it-works-content {
-    gap: 60px;
+@media (max-width: 768px) {
+  .how-it-works-sticky-wrapper {
+    height: 350vh; /* Increased total height for mobile */
   }
   
-  .flow-diagram-container {
-    width: 550px;
-    height: 550px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .how-it-works-content {
-    gap: 40px;
-  }
-  
-  .section-title {
-    font-size: 38px;
-  }
-  
-  .flow-diagram-container {
-    width: 500px;
-    height: 500px;
-}
-
-.step-item h3 {
-  font-size: 24px;
-}
-
-.step-item p {
-  font-size: 16px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .how-it-works-content {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-  
-  .steps-text-container {
-    position: relative;
-    top: auto;
-  }
-  
-  .steps-visualization {
-    position: relative;
-    top: auto;
-    order: -1;
-  }
-  
-  .flow-diagram-container {
-    width: 400px;
-    height: 400px;
-  }
-  
-  .steps-text-content {
-    gap: 80px;
+  .how-it-works-spacer {
+    height: 250vh; /* Increased height for mobile */
   }
 }
 
 @media (max-width: 768px) {
   .how-it-works {
-    padding: 60px 0;
-    min-height: auto;
+    padding: 0 !important;
+    margin-top: 80px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
-  
+
+  .cards-container {
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 80px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
   .how-it-works .container {
-    padding: 0 24px;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
-  
+
   .how-it-works-header {
-    margin-bottom: 40px;
+    padding: 0 !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
-  
+
   .section-title {
     font-size: 32px;
+    line-height: 1.2;
+    text-align: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    flex: 0 0 10px;
   }
-  
-  .how-it-works-content {
-    gap: 40px;
+
+  .steps-container {
+    padding: 0;
+    width: 100%;
   }
-  
-  .steps-text-content {
-    gap: 60px;
+
+  .steps-description {
+    padding: 0;
+    width: 100%;
   }
-  
+
+  .steps-visualization {
+    position: relative;
+    width: 100%;
+    right: auto;
+    top: 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
   .flow-diagram-container {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: 400px;
+    margin: 0 auto;
   }
-  
+
+  .flow-diagram {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .step-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+  .steps-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .steps-description {
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    height: 400px; /* Fixed height to prevent layout shifts */
+    overflow: hidden; /* Hide overflow to prevent content from affecting layout */
+  }
+
+  .step-item {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+    display: none;
+    text-align: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+  .step-item.active,
+  .step-item.initial-active {
+    display: block;
+  }
+
   .step-item h3 {
-    font-size: 22px;
+    font-size: 20px;
+    margin: 0 0 0 0;
+    padding: 0;
+    width: 100% !important;
+    text-align: center !important;
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: auto !important;
+    margin-right: auto !important;
+    transition: color 0.6s ease, opacity 0.6s ease;
+    filter: brightness(0.7);
   }
-  
+
+  .step-item h3::before {
+  display: none;
+  }
+
+  .step-item h3::after {
+    display: none !important;
+  }
+
+  .step-item.active h3,
+  .step-item.initial-active h3 {
+    color: #9affe0;
+    filter: brightness(1);
+  }
+
   .step-item p {
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 auto !important;
+    max-width: calc(100vw - 32px) !important;
+    text-align: center !important;
+    padding: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    margin-top: 0 !important;
+    transition: color 0.6s ease, opacity 0.6s ease;
+    filter: brightness(0.7);
+  }
+
+  .step-item.active p,
+  .step-item.initial-active p {
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: rgba(255, 255, 255, 0.9);
+    filter: brightness(1);
   }
 }
 
@@ -1370,7 +1352,7 @@ section .container {
   .step-item h3 {
     font-size: 18px;
     text-align: center;
-  margin: 0;
+    margin: 0;
     transition: color 0.6s ease, opacity 0.6s ease;
     filter: brightness(0.7);
   }
@@ -1389,12 +1371,14 @@ section .container {
     filter: brightness(0.7);
   }
 
-  .step-item.active h3 {
+  .step-item.active h3,
+  .step-item.initial-active h3 {
     color: #9affe0;
     filter: brightness(1);
   }
 
-  .step-item.active p {
+  .step-item.active p,
+  .step-item.initial-active p {
     color: rgba(255, 255, 255, 0.9);
     filter: brightness(1);
   }
@@ -2147,7 +2131,70 @@ main {
   }
 }
 
+@media (max-width: 768px) {
+  .steps-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .step-item.initial-active {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .step-item.initial-active h3,
+  .step-item.initial-active p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
+@media (max-width: 768px) {
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  .steps-description {
+    width: 100%;
+    max-width: 100% !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0;
+    flex: 0 0 220px;
+  }
+  .step-item.initial-active {
+    width: 95%;
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .step-item.initial-active h3,
+  .step-item.initial-active p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 /* 모바일 오버플로우 방지 - 새로운 2개 화면 분할 시스템과 호환 */
 @media (max-width: 1023px) {
@@ -2174,6 +2221,436 @@ main {
   }
 }
 
+/* How It Works 섹션 - 데스크탑 스타일 (1024px 이상) */
+@media (min-width: 1024px) {
+  .how-it-works {
+    padding: 100px 0;
+  }
 
+  .how-it-works .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 42px;
+    position: relative;
+    overflow: visible;
+  }
 
+  .how-it-works-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 40px;
+    position: relative;
+  }
 
+  .section-title {
+    font-size: 42px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    flex: 0 0 450px;
+    padding-top: 40px;
+  }
+
+  .steps-container {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 40px;
+    margin-top: 20px;
+  }
+
+  .steps-description {
+    flex: 0 0 480px;
+    padding-right: 0;
+    position: relative;
+    z-index: 2;
+    height: 600px; /* Fixed height to prevent layout shifts */
+    overflow: hidden; /* Hide overflow to prevent content from affecting layout */
+  }
+
+  .steps-visualization {
+    position: absolute;
+    right: 0;
+    top: 80px;
+    width: 700px;
+    height: 700px;
+  }
+
+  .flow-diagram-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flow-diagram {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none;
+  }
+
+  .flow-diagram.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .flow-diagram:first-child {
+    position: relative;
+    visibility: visible;
+  }
+
+  .step-numbers {
+    display: none; /* Hide the step numbers since we're using inline numbers */
+  }
+
+  .step-item {
+    margin-bottom: 60px;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+  }
+
+  .step-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .step-item h3 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 24px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .step-item h3::before {
+    content: attr(data-step);
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    min-width: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .step-item h3::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .step-item.active h3::after,
+  .step-item.initial-active h3::after {
+    content: '-';
+    color: #fff;
+  }
+
+  .step-item p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 60px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 0;
+  }
+
+  .step-item.active {
+    opacity: 1;
+  }
+
+  .step-item.active h3 {
+    opacity: 1;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+
+  .step-item.active p {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 0;
+  }
+
+  /* Initial state for the first item */
+  .step-item.initial-active p {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 16px;
+  }
+
+  .step-item.initial-active {
+    opacity: 1;
+  }
+
+  .step-item.initial-active h3 {
+    opacity: 1;
+    color: #fff;
+  }
+
+  .flow-diagram-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flow-diagram {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none;
+  }
+
+  .flow-diagram.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .flow-diagram:first-child {
+    position: relative;
+    visibility: visible;
+  }
+
+  .step-numbers {
+    display: none; /* Hide the step numbers since we're using inline numbers */
+  }
+}
+
+/* How It Works 섹션 - 모바일 스타일 (1024px 미만) */
+@media (max-width: 1023px) {
+  .how-it-works {
+    padding: clamp(40px, 5vw, 80px) 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .how-it-works .container {
+    padding: 0;
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .how-it-works-header {
+    padding: 0;
+    width: 100%;
+    margin-bottom: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 32px;
+    line-height: 1.2;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .steps-visualization {
+    position: relative;
+    width: 100%;
+    right: auto;
+    top: 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .flow-diagram-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .flow-diagram {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .flow-diagram.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .flow-diagram:first-child {
+    position: relative;
+    visibility: visible;
+  }
+
+  .step-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .steps-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .steps-description {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    height: 400px; /* Fixed height to prevent layout shifts */
+    overflow: hidden; /* Hide overflow to prevent content from affecting layout */
+  }
+
+  .step-item {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+    display: none;
+    text-align: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .step-item.active,
+  .step-item.initial-active {
+    display: block;
+  }
+
+  .step-item h3 {
+    font-size: 20px;
+    margin-bottom: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+    transition: color 0.6s ease, opacity 0.6s ease;
+    filter: brightness(0.7);
+  }
+
+  .step-item h3::before {
+    display: none;
+  }
+
+  .step-item h3::after {
+    display: none;
+  }
+
+  .step-item.active h3,
+  .step-item.initial-active h3 {
+    color: #9affe0;
+    filter: brightness(1);
+  }
+
+  .step-item p {
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 auto;
+    max-width: calc(100vw - 32px);
+    text-align: center;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-top: 0;
+    transition: color 0.6s ease, opacity 0.6s ease;
+    filter: brightness(0.7);
+  }
+
+  .step-item.active p,
+  .step-item.initial-active p {
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: rgba(255, 255, 255, 0.9);
+    filter: brightness(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .step-numbers {
+    margin-bottom: 8px !important;
+  }
+  .steps-container {
+    margin-top: 8px !important;
+  }
+}
+
+/* Ensure subsequent sections appear properly after sticky effect */
+.section.problem-statement,
+.section.solution,
+.section.faq,
+.cta {
+  position: relative;
+  z-index: 5; /* Higher than spacer but lower than sticky container when active */
+  background: #000; /* Ensure background is visible */
+}
+
+/* When sticky container is no longer sticky, ensure sections are visible */
+.section.problem-statement {
+  margin-top: 0; /* Remove any extra margin that might cause spacing issues */
+}
