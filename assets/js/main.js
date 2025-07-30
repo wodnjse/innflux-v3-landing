@@ -252,6 +252,7 @@ function initHowItWorks() {
     
     const wrapperRect = stickyWrapper.getBoundingClientRect();
     const windowHeight = window.innerHeight;
+    const isMobile = window.innerWidth <= 1023;
     
     // Check if we're in the sticky wrapper area
     if (wrapperRect.top <= 0 && wrapperRect.bottom > 0) {
@@ -263,14 +264,29 @@ function initHowItWorks() {
       
       // Determine which step should be active based on scroll progress
       let activeIndex = -1;
-      if (scrollProgress > 0.1) {
-        activeIndex = 0;
-      }
-      if (scrollProgress > 0.43) {
-        activeIndex = 1;
-      }
-      if (scrollProgress > 0.76) {
-        activeIndex = 2;
+      
+      // Mobile-optimized transition points
+      if (isMobile) {
+        if (scrollProgress > 0.08) {
+          activeIndex = 0;
+        }
+        if (scrollProgress > 0.38) {
+          activeIndex = 1;
+        }
+        if (scrollProgress > 0.68) {
+          activeIndex = 2;
+        }
+      } else {
+        // Desktop transition points
+        if (scrollProgress > 0.1) {
+          activeIndex = 0;
+        }
+        if (scrollProgress > 0.43) {
+          activeIndex = 1;
+        }
+        if (scrollProgress > 0.76) {
+          activeIndex = 2;
+        }
       }
       
       // Only activate if different from current
@@ -317,7 +333,7 @@ function initHowItWorks() {
       });
       scrollTicking = true;
     }
-  });
+  }, { passive: true }); // Add passive flag for better mobile performance
 
   // Handle window resize
   window.addEventListener('resize', () => {
