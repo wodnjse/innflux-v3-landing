@@ -680,10 +680,14 @@ section .container {
 
 /* CTA section */
 .cta {
-  background-image: url(https://c.animaapp.com/b3FISGYA/img/gradient-1.png);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #003629 0%, #001a14 50%, #000000 100%);
+  background-image: url(https://c.animaapp.com/b3FISGYA/img/gradient-1.png) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
   padding: 100px 0;
+  position: relative;
+  min-height: 400px;
 }
 
 .cta-title {
