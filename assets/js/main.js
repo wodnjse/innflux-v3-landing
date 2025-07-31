@@ -222,131 +222,255 @@ function initGradientFollow() {
 function initHowItWorks() {
   const stepItems = document.querySelectorAll('.step-item');
   const flowDiagrams = document.querySelectorAll('.flow-diagram');
-  const stepNumbers = document.querySelectorAll('.step-numbers span');
-  const howItWorksSection = document.querySelector('.how-it-works');
-  let scrollTicking = false;
-
-  if (!howItWorksSection) return;
-
-  function activateStep(index) {
-    // Remove all active and initial-active classes
-    stepItems.forEach(item => {
-      item.classList.remove('active');
-      item.classList.remove('initial-active');
+  
+  let currentStep = 0;
+  
+  // Initialize first step
+  function initializeFirstStep() {
+    stepItems.forEach((item, index) => {
+      if (index === 0) {
+        item.classList.add('active');
+        item.classList.add('initial-active');
+      } else {
+        item.classList.remove('active', 'initial-active');
+      }
     });
-    flowDiagrams.forEach(diagram => diagram.classList.remove('active'));
-    stepNumbers.forEach(num => num.classList.remove('active'));
     
-    // Add active class to selected items
-    stepItems[index].classList.add('active');
-    flowDiagrams[index].classList.add('active');
-    stepNumbers[index].classList.add('active');
-  }
+    flowDiagrams.forEach((diagram, index) => {
+      if (index === 0) {
+        diagram.classList.add('active');
+      } else {
+        diagram.classList.remove('active');
+      }
+    });
+    
 
-  function handleScrollBasedTransitions() {
+  }
+  
+  // Simple step activation
+  function activateStep(stepIndex) {
+    if (stepIndex === currentStep) return;
+    
+    console.log(`🎯 Activating step ${stepIndex}`);
+    
+    // Update step items
+    stepItems.forEach((item, index) => {
+      if (index === stepIndex) {
+        item.classList.add('active');
+      item.classList.remove('initial-active');
+        console.log(`✅ Step item ${index} activated`);
+      } else {
+        item.classList.remove('active', 'initial-active');
+      }
+    });
+    
+    // Update flow diagrams
+    flowDiagrams.forEach((diagram, index) => {
+      if (index === stepIndex) {
+        diagram.classList.add('active');
+        console.log(`✅ Flow diagram ${index} activated`);
+      } else {
+      diagram.classList.remove('active');
+      }
+    });
+    
+    currentStep = stepIndex;
+    console.log(`✅ Current step updated to ${stepIndex}`);
+  }
+  
+  // Clean initialization
+  
+  // Simple scroll handler
+  function handleScroll() {
+    const scrollY = window.scrollY;
+    
+    // Get the sticky wrapper position
     const stickyWrapper = document.querySelector('.how-it-works-sticky-wrapper');
-    const stickyContainer = document.querySelector('.how-it-works-sticky-container');
-    const spacer = document.querySelector('.how-it-works-spacer');
+    if (!stickyWrapper) return;
     
-    if (!stickyWrapper || !stickyContainer || !spacer) return;
+    const wrapperTop = stickyWrapper.offsetTop;
+    const scrollIntoSection = scrollY - wrapperTop;
     
-    const wrapperRect = stickyWrapper.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    console.log(`Scroll: ${scrollY}px, Wrapper top: ${wrapperTop}px, Into section: ${scrollIntoSection}px`);
+    
+    // For small screens, use simpler logic
     const isMobile = window.innerWidth <= 1023;
     
-    // Check if we're in the sticky wrapper area
-    if (wrapperRect.top <= 0 && wrapperRect.bottom > 0) {
-      // Calculate progress through the wrapper area (0 to 1)
-      const wrapperHeight = wrapperRect.height;
-      const scrollProgress = Math.max(0, Math.min(1, 
-        (windowHeight - wrapperRect.top) / wrapperHeight
-      ));
+    if (isMobile) {
+      // Mobile: use direct scrollY thresholds
+      let targetStep = Math.floor(scrollY / 200) % 3;
       
-      // Determine which step should be active based on scroll progress
-      let activeIndex = -1;
+      console.log(`Mobile: scrollY ${scrollY}px -> target step ${targetStep}`);
       
-      // Mobile-optimized transition points
-      if (isMobile) {
-        if (scrollProgress > 0.08) {
-          activeIndex = 0;
-        }
-        if (scrollProgress > 0.38) {
-          activeIndex = 1;
-        }
-        if (scrollProgress > 0.68) {
-          activeIndex = 2;
-        }
-      } else {
-        // Desktop transition points
-        if (scrollProgress > 0.1) {
-          activeIndex = 0;
-        }
-        if (scrollProgress > 0.43) {
-          activeIndex = 1;
-        }
-        if (scrollProgress > 0.76) {
-          activeIndex = 2;
-        }
+      if (targetStep !== currentStep) {
+        console.log(`🔄 Mobile: Activating step ${targetStep} from ${currentStep}`);
+        activateStep(targetStep);
       }
+    } else {
+      // Desktop: use sticky section logic
+      const triggerOffset = 0;
       
-      // Only activate if different from current
-      const currentActive = Array.from(stepItems).findIndex(item => 
-        item.classList.contains('active') || item.classList.contains('initial-active')
-      );
-      
-      if (currentActive !== activeIndex) {
-        if (activeIndex >= 0) {
-          activateStep(activeIndex);
-        } else {
-          // Deactivate all steps initially
-          stepItems.forEach(item => {
-            item.classList.remove('active');
-            item.classList.remove('initial-active');
-          });
-          flowDiagrams.forEach(diagram => diagram.classList.remove('active'));
-          stepNumbers.forEach(num => num.classList.remove('active'));
+      if (scrollIntoSection >= triggerOffset) {
+        let targetStep = Math.floor(scrollIntoSection / 100) % 3;
+        targetStep = Math.max(0, targetStep);
+        
+        console.log(`Desktop: In sticky section, target step: ${targetStep}, current step: ${currentStep}`);
+        
+        if (targetStep !== currentStep) {
+          console.log(`🔄 Desktop: Activating step ${targetStep} from ${currentStep}`);
+          activateStep(targetStep);
         }
-      }
-    } else if (wrapperRect.bottom <= 0) {
-      // If we've scrolled past the wrapper, ensure the last step is active
-      const currentActive = Array.from(stepItems).findIndex(item => 
-        item.classList.contains('active') || item.classList.contains('initial-active')
-      );
-      
-      if (currentActive !== 2) {
-        activateStep(2);
       }
     }
   }
-
-  // Initialize first step with initial-active class
-  stepItems[0].classList.add('initial-active');
-  flowDiagrams[0].classList.add('active');
-  stepNumbers[0].classList.add('active');
-
-  // Add scroll event listener for automatic transitions
-  window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-      window.requestAnimationFrame(() => {
-        handleScrollBasedTransitions();
-        scrollTicking = false;
-      });
-      scrollTicking = true;
+  
+  // Force mobile transitions with manual triggers
+  function forceMobileTransitions() {
+    if (window.innerWidth <= 1023) {
+      console.log('🔄 Force mobile transition check');
+      let targetStep = (currentStep + 1) % 3;
+      console.log(`🔄 Force activating step ${targetStep} from ${currentStep}`);
+      activateStep(targetStep);
     }
-  }, { passive: true }); // Add passive flag for better mobile performance
-
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    const activeIndex = Array.from(stepItems).findIndex(item => 
-      item.classList.contains('active') || item.classList.contains('initial-active')
-    );
-    if (activeIndex === -1) {
-      // If no step is active, keep the initial state
-      stepItems[0].classList.add('initial-active');
-      flowDiagrams[0].classList.add('active');
-      stepNumbers[0].classList.add('active');
+  }
+  
+  // Global function for testing
+  window.testStep = function(stepIndex) {
+    console.log(`🧪 Testing step ${stepIndex}`);
+    activateStep(stepIndex);
+  };
+  
+  // Scroll-based transitions for small screens
+  let lastScrollY = 0;
+  let scrollDirection = 0;
+  let scrollThreshold = 30; // pixels to trigger transition
+  let lastTouchY = 0;
+  let lastWheelDelta = 0;
+  
+  function handleSmallScreenScroll() {
+    if (window.innerWidth > 1023) return;
+    
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+    
+    console.log(`📱 Small screen scroll check: current=${currentScrollY}, last=${lastScrollY}, delta=${scrollDelta}`);
+    
+    // Detect scroll direction and magnitude
+    if (Math.abs(scrollDelta) > scrollThreshold) {
+      if (scrollDelta > 0) {
+        // Scrolling down
+        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
+        console.log(`📱 Small screen scroll down: ${scrollDelta}px -> step ${targetStep}`);
+        activateStep(targetStep);
+      } else {
+        // Scrolling up
+        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
+        console.log(`📱 Small screen scroll up: ${scrollDelta}px -> step ${targetStep}`);
+        activateStep(targetStep);
+      }
+      lastScrollY = currentScrollY;
+    }
+  }
+  
+  // Wheel-based scroll detection for PC
+  function handleWheelScroll(e) {
+    if (window.innerWidth > 1023) return;
+    
+    const wheelDelta = e.deltaY;
+    const wheelThreshold = 30;
+    
+    console.log(`🖱️ Wheel scroll: deltaY=${wheelDelta}`);
+    
+    if (Math.abs(wheelDelta) > wheelThreshold) {
+      if (wheelDelta > 0) {
+        // Scrolling down
+        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
+        console.log(`🖱️ Wheel scroll down: ${wheelDelta} -> step ${targetStep}`);
+        activateStep(targetStep);
+      } else {
+        // Scrolling up
+        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
+        console.log(`🖱️ Wheel scroll up: ${wheelDelta} -> step ${targetStep}`);
+        activateStep(targetStep);
+      }
+    }
+  }
+  
+  // Keyboard-based navigation for PC testing
+  function handleKeyNavigation(e) {
+    if (window.innerWidth > 1023) return;
+    
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
+      console.log(`⌨️ Key down -> step ${targetStep}`);
+      activateStep(targetStep);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
+      console.log(`⌨️ Key up -> step ${targetStep}`);
+      activateStep(targetStep);
+    }
+  }
+  
+  // Touch-based scroll detection
+  function handleTouchStart(e) {
+    if (window.innerWidth > 1023) return;
+    lastTouchY = e.touches[0].clientY;
+  }
+  
+  function handleTouchMove(e) {
+    if (window.innerWidth > 1023) return;
+    
+    const currentTouchY = e.touches[0].clientY;
+    const touchDelta = lastTouchY - currentTouchY;
+    
+    if (Math.abs(touchDelta) > scrollThreshold) {
+      if (touchDelta > 0) {
+        // Swiping up (scrolling down)
+        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
+        console.log(`📱 Touch swipe up: ${touchDelta}px -> step ${targetStep}`);
+        activateStep(targetStep);
+      } else {
+        // Swiping down (scrolling up)
+        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
+        console.log(`📱 Touch swipe down: ${touchDelta}px -> step ${targetStep}`);
+        activateStep(targetStep);
+      }
+      lastTouchY = currentTouchY;
+    }
+  }
+  
+  // Initialize
+  initializeFirstStep();
+  
+  // Add multiple scroll listeners to ensure it works
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', handleSmallScreenScroll, { passive: true });
+  document.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('wheel', handleWheelScroll, { passive: true });
+  window.addEventListener('touchmove', handleTouchMove, { passive: true });
+  window.addEventListener('touchstart', handleTouchStart, { passive: true });
+  
+  // Add manual transition triggers for testing
+  window.addEventListener('keydown', handleKeyNavigation);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      forceMobileTransitions();
     }
   });
+  
+  // Add click triggers for mobile testing
+  document.addEventListener('click', () => {
+    if (window.innerWidth <= 1023) {
+      setTimeout(forceMobileTransitions, 100);
+    }
+  });
+  
+  // Initial check
+  setTimeout(handleScroll, 100);
+  
+  // Remove periodic check - no longer needed
+  
+
 }
 
 // Form validation
