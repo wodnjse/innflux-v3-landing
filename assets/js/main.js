@@ -248,17 +248,14 @@ function initHowItWorks() {
   }
   
   // Simple step activation
-  function activateStep(stepIndex) {
+    function activateStep(stepIndex) {
     if (stepIndex === currentStep) return;
-    
-    console.log(`🎯 Activating step ${stepIndex}`);
     
     // Update step items
     stepItems.forEach((item, index) => {
       if (index === stepIndex) {
         item.classList.add('active');
-      item.classList.remove('initial-active');
-        console.log(`✅ Step item ${index} activated`);
+        item.classList.remove('initial-active');
       } else {
         item.classList.remove('active', 'initial-active');
       }
@@ -268,14 +265,12 @@ function initHowItWorks() {
     flowDiagrams.forEach((diagram, index) => {
       if (index === stepIndex) {
         diagram.classList.add('active');
-        console.log(`✅ Flow diagram ${index} activated`);
       } else {
-      diagram.classList.remove('active');
+        diagram.classList.remove('active');
       }
     });
     
     currentStep = stepIndex;
-    console.log(`✅ Current step updated to ${stepIndex}`);
   }
   
   // Clean initialization
@@ -305,8 +300,8 @@ function initHowItWorks() {
       if (targetStep !== currentStep) {
         console.log(`🔄 Mobile: Activating step ${targetStep} from ${currentStep}`);
         activateStep(targetStep);
-      }
-    } else {
+        }
+      } else {
       // Desktop: use sticky section logic
       const triggerOffset = 0;
       
@@ -334,18 +329,18 @@ function initHowItWorks() {
     }
   }
   
-  // Global function for testing
-  window.testStep = function(stepIndex) {
-    console.log(`🧪 Testing step ${stepIndex}`);
-    activateStep(stepIndex);
-  };
+
   
   // Scroll-based transitions for small screens
   let lastScrollY = 0;
   let scrollDirection = 0;
-  let scrollThreshold = 30; // pixels to trigger transition
+  let scrollThreshold = 10; // Reduced threshold for easier triggering
   let lastTouchY = 0;
   let lastWheelDelta = 0;
+  let isTransitioning = false; // Prevent multiple transitions
+  let sectionStartY = 0; // Track when section starts
+  let sectionEndY = 0; // Track when section ends
+  let isInStickySection = false; // Track if we're in the sticky section
   
   function handleSmallScreenScroll() {
     if (window.innerWidth > 1023) return;
@@ -353,22 +348,30 @@ function initHowItWorks() {
     const currentScrollY = window.scrollY;
     const scrollDelta = currentScrollY - lastScrollY;
     
-    console.log(`📱 Small screen scroll check: current=${currentScrollY}, last=${lastScrollY}, delta=${scrollDelta}`);
-    
-    // Detect scroll direction and magnitude
-    if (Math.abs(scrollDelta) > scrollThreshold) {
+    // Simple scroll-based transitions
+    if (Math.abs(scrollDelta) > scrollThreshold && !isTransitioning) {
+      isTransitioning = true;
+      
       if (scrollDelta > 0) {
         // Scrolling down
         let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
-        console.log(`📱 Small screen scroll down: ${scrollDelta}px -> step ${targetStep}`);
-        activateStep(targetStep);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       } else {
         // Scrolling up
         let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
-        console.log(`📱 Small screen scroll up: ${scrollDelta}px -> step ${targetStep}`);
-        activateStep(targetStep);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       }
+      
       lastScrollY = currentScrollY;
+      
+      // Reset transition flag after a delay
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
     }
   }
   
@@ -377,22 +380,28 @@ function initHowItWorks() {
     if (window.innerWidth > 1023) return;
     
     const wheelDelta = e.deltaY;
-    const wheelThreshold = 30;
+    const wheelThreshold = 10;
     
-    console.log(`🖱️ Wheel scroll: deltaY=${wheelDelta}`);
-    
-    if (Math.abs(wheelDelta) > wheelThreshold) {
+    if (Math.abs(wheelDelta) > wheelThreshold && !isTransitioning) {
+      isTransitioning = true;
+      
       if (wheelDelta > 0) {
         // Scrolling down
-        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
-        console.log(`🖱️ Wheel scroll down: ${wheelDelta} -> step ${targetStep}`);
-        activateStep(targetStep);
+        let targetStep = Math.min(currentStep + 1, 2);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       } else {
         // Scrolling up
-        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
-        console.log(`🖱️ Wheel scroll up: ${wheelDelta} -> step ${targetStep}`);
-        activateStep(targetStep);
+        let targetStep = Math.max(currentStep - 1, 0);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       }
+      
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
     }
   }
   
@@ -400,14 +409,20 @@ function initHowItWorks() {
   function handleKeyNavigation(e) {
     if (window.innerWidth > 1023) return;
     
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-      let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
-      console.log(`⌨️ Key down -> step ${targetStep}`);
-      activateStep(targetStep);
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-      let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
-      console.log(`⌨️ Key up -> step ${targetStep}`);
-      activateStep(targetStep);
+    if (!isTransitioning) {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
+        if (targetStep !== currentStep) {
+          console.log(`⌨️ Key down -> step ${targetStep}`);
+          activateStep(targetStep);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
+        if (targetStep !== currentStep) {
+          console.log(`⌨️ Key up -> step ${targetStep}`);
+          activateStep(targetStep);
+        }
+      }
     }
   }
   
@@ -417,25 +432,34 @@ function initHowItWorks() {
     lastTouchY = e.touches[0].clientY;
   }
   
-  function handleTouchMove(e) {
+      function handleTouchMove(e) {
     if (window.innerWidth > 1023) return;
     
     const currentTouchY = e.touches[0].clientY;
     const touchDelta = lastTouchY - currentTouchY;
     
-    if (Math.abs(touchDelta) > scrollThreshold) {
+    if (Math.abs(touchDelta) > scrollThreshold && !isTransitioning) {
+      isTransitioning = true;
+      
       if (touchDelta > 0) {
         // Swiping up (scrolling down)
-        let targetStep = Math.min(currentStep + 1, 2); // Don't cycle back to 0
-        console.log(`📱 Touch swipe up: ${touchDelta}px -> step ${targetStep}`);
-        activateStep(targetStep);
+        let targetStep = Math.min(currentStep + 1, 2);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       } else {
         // Swiping down (scrolling up)
-        let targetStep = Math.max(currentStep - 1, 0); // Don't cycle back to 2
-        console.log(`📱 Touch swipe down: ${touchDelta}px -> step ${targetStep}`);
-        activateStep(targetStep);
+        let targetStep = Math.max(currentStep - 1, 0);
+        if (targetStep !== currentStep) {
+          activateStep(targetStep);
+        }
       }
+      
       lastTouchY = currentTouchY;
+      
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 500);
     }
   }
   
@@ -458,17 +482,13 @@ function initHowItWorks() {
     }
   });
   
-  // Add click triggers for mobile testing
-  document.addEventListener('click', () => {
-    if (window.innerWidth <= 1023) {
-      setTimeout(forceMobileTransitions, 100);
-    }
-  });
+  // Remove click triggers - no longer needed
   
   // Initial check
   setTimeout(handleScroll, 100);
+  setTimeout(handleSmallScreenScroll, 200);
   
-  // Remove periodic check - no longer needed
+
   
 
 }
