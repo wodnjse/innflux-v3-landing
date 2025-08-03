@@ -255,7 +255,7 @@ function initHowItWorks() {
     stepItems.forEach((item, index) => {
       if (index === stepIndex) {
         item.classList.add('active');
-        item.classList.remove('initial-active');
+      item.classList.remove('initial-active');
       } else {
         item.classList.remove('active', 'initial-active');
       }
@@ -266,7 +266,7 @@ function initHowItWorks() {
       if (index === stepIndex) {
         diagram.classList.add('active');
       } else {
-        diagram.classList.remove('active');
+      diagram.classList.remove('active');
       }
     });
     
@@ -284,9 +284,9 @@ function initHowItWorks() {
     if (!stickyWrapper) return;
     
     const wrapperTop = stickyWrapper.offsetTop;
+    const wrapperHeight = stickyWrapper.offsetHeight;
+    const windowHeight = window.innerHeight;
     const scrollIntoSection = scrollY - wrapperTop;
-    
-    console.log(`Scroll: ${scrollY}px, Wrapper top: ${wrapperTop}px, Into section: ${scrollIntoSection}px`);
     
     // For small screens, use simpler logic
     const isMobile = window.innerWidth <= 1023;
@@ -295,39 +295,31 @@ function initHowItWorks() {
       // Mobile: use direct scrollY thresholds
       let targetStep = Math.floor(scrollY / 200) % 3;
       
-      console.log(`Mobile: scrollY ${scrollY}px -> target step ${targetStep}`);
-      
       if (targetStep !== currentStep) {
-        console.log(`🔄 Mobile: Activating step ${targetStep} from ${currentStep}`);
         activateStep(targetStep);
-        }
-      } else {
-      // Desktop: use sticky section logic
-      const triggerOffset = 0;
+      }
+    } else {
+      // Desktop: use progress-based transitions within sticky section
+      const sectionStart = wrapperTop;
+      const sectionEnd = wrapperTop + wrapperHeight - windowHeight;
       
-      if (scrollIntoSection >= triggerOffset) {
-        let targetStep = Math.floor(scrollIntoSection / 100) % 3;
-        targetStep = Math.max(0, targetStep);
+      // Check if we're in the sticky section
+      if (scrollY >= sectionStart && scrollY <= sectionEnd) {
+        // Calculate progress within the section (0 to 1)
+        const sectionProgress = Math.min(Math.max((scrollY - sectionStart) / (sectionEnd - sectionStart), 0), 1);
         
-        console.log(`Desktop: In sticky section, target step: ${targetStep}, current step: ${currentStep}`);
+        // Map progress to step (0, 1, 2) with equal intervals
+        let targetStep = Math.floor(sectionProgress * 3);
+        targetStep = Math.min(targetStep, 2); // Ensure we don't exceed step 2
         
         if (targetStep !== currentStep) {
-          console.log(`🔄 Desktop: Activating step ${targetStep} from ${currentStep}`);
           activateStep(targetStep);
         }
       }
     }
   }
   
-  // Force mobile transitions with manual triggers
-  function forceMobileTransitions() {
-    if (window.innerWidth <= 1023) {
-      console.log('🔄 Force mobile transition check');
-      let targetStep = (currentStep + 1) % 3;
-      console.log(`🔄 Force activating step ${targetStep} from ${currentStep}`);
-      activateStep(targetStep);
-    }
-  }
+
   
 
   
@@ -447,7 +439,7 @@ function initHowItWorks() {
         if (targetStep !== currentStep) {
           activateStep(targetStep);
         }
-      } else {
+    } else {
         // Swiping down (scrolling up)
         let targetStep = Math.max(currentStep - 1, 0);
         if (targetStep !== currentStep) {
@@ -476,11 +468,6 @@ function initHowItWorks() {
   
   // Add manual transition triggers for testing
   window.addEventListener('keydown', handleKeyNavigation);
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') {
-      forceMobileTransitions();
-    }
-  });
   
   // Remove click triggers - no longer needed
   
